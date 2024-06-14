@@ -7,14 +7,40 @@ typedef struct Game {
     int tamanoTablero;
 } Game;
 
+int checkSize() {
+    int numero = 0;
+    int esValido = 0;
+    char c;
+
+    while (!esValido) {
+        printf("Ingrese el tamano del tablero en el que desea jugar:\n");
+        
+
+        if (scanf("%d", &numero) == 1) {
+            if (numero >= 3 && numero <=5) {
+                esValido = 1;
+            }
+        }
+
+        else {
+            printf("Entrada invalida. Ingrese un numero entero entre 3-5.\n");
+        }
+
+        // Limpiar buffer de entrada
+        while ((c = getchar()) != '\n' && c != EOF) {
+        }
+
+    }
+
+    return numero;
+}
+
 void init_board(Game* game) {
 
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
         return;
     }
-
-    game->tamanoTablero = 4;
 
     game->tablero = (int **)malloc(game->tamanoTablero * sizeof(int *));
 
@@ -42,6 +68,8 @@ void init_board(Game* game) {
 
 // Funcion temporal para la terminal
 void printTablero(Game* game) {
+    printf("Puntuacion: %d\n\n", game->puntuacion);
+    
     for (int i = 0; i < game->tamanoTablero; i++) {
         printf("| ");
 
@@ -51,7 +79,11 @@ void printTablero(Game* game) {
 
         printf("\n");
     }
+
 }
+
+
+
 
 void freeTablero(Game* game) {
     if (game == NULL) {
@@ -69,11 +101,14 @@ void freeTablero(Game* game) {
 int main() {
     Game game;
 
-    init_board(&game);
+    
+    printf("%d\n", checkSize(&game));
 
-    printTablero(&game);
+    // init_board(&game);
 
-    freeTablero(&game);
+    // printTablero(&game);
+
+    // freeTablero(&game);
     
     return 0;
 }
