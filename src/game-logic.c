@@ -1,11 +1,8 @@
+#include "../include/game-logic.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Game {
-    int **tablero; // Doble puntero para tener un array 2D
-    int puntuacion;
-    int tamanoTablero;
-} Game;
 
 int checkSize() {
     int numero = 0;
@@ -35,18 +32,18 @@ int checkSize() {
     return numero;
 }
 
-void init_board(Game* game) {
+int init_board(Game* game) {
 
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
-        return;
+        return 0;
     }
 
     game->tablero = (int **)malloc(game->tamanoTablero * sizeof(int *));
 
     if (game->tablero == NULL) {
         printf("Error: No se pudo reservar memoria correctamente\n");
-        return;
+        return 0;
     }
 
 
@@ -55,7 +52,7 @@ void init_board(Game* game) {
 
         if (game->tablero[i] == NULL) {
             printf("Error: No se pudo reservar memoria correctamente\n");
-            return;
+            return 0;
         }
 
         for (int j = 0; j < game->tamanoTablero; j++) {
@@ -64,10 +61,16 @@ void init_board(Game* game) {
     }
 
     game->puntuacion = 0;
+
+    return 1;
 }
 
 // Funcion temporal para la terminal
 void printTablero(Game* game) {
+    if (game == NULL) {
+        printf("Error: Direccion de game indefinida\n");
+    }
+
     printf("Puntuacion: %d\n\n", game->puntuacion);
     
     for (int i = 0; i < game->tamanoTablero; i++) {
@@ -82,7 +85,35 @@ void printTablero(Game* game) {
 
 }
 
+void addCasillaRandom(Game* game) {
+    if (game == NULL) {
+        printf("Error: Direccion de game indefinida\n");
+        return;
+    }
 
+    int casillasVacias = 0;
+
+    // Recorrido para verificar existencia de casillas vacias
+    for (int i = 0; i < game->tamanoTablero; i++) {
+
+        for (int j = 0; j < game->tamanoTablero; j++) {
+
+            if (game->tablero[i][j] == 0) {
+                casillasVacias++;
+            }
+        }
+    }
+
+    printf("%d\n", casillasVacias);
+
+    if (casillasVacias == 0) {
+        // Condicion de perder
+        return;
+    }
+
+
+
+}
 
 
 void freeTablero(Game* game) {
@@ -100,9 +131,18 @@ void freeTablero(Game* game) {
 
 int main() {
     Game game;
+    int game_running = 0;
 
+    checkSize(&game);
+
+    game_running = init_board(&game);
+
+    if (!game_running) {      
+        return 1;
+    }
     
-    printf("%d\n", checkSize(&game));
+
+    addCasillaRandom(&game);
 
     // init_board(&game);
 
