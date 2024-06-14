@@ -20,7 +20,7 @@ int checkSize() {
         }
 
         else {
-            printf("Entrada invalida. Ingrese un numero entero entre 3-5.\n");
+            printf("Entrada invalida. Ingrese un numero entero entre 3-5.\n\n");
         }
 
         // Limpiar buffer de entrada
@@ -104,15 +104,34 @@ void addCasillaRandom(Game* game) {
         }
     }
 
-    printf("%d\n", casillasVacias);
-
     if (casillasVacias == 0) {
         // Condicion de perder
         return;
     }
 
+    /* Generar numero aleatorio para el rango de casillas vacias */ 
+    int posicionCasilla = rand() % casillasVacias; // 0 - casillasVacias-1
 
+    
+    /* Seleccionar valor de nueva casilla */
+    int valorCasilla = 2*(rand() % 2 + 1); // 2-4
 
+    /* Agregar al tablero */
+    for (int i = 0; i < game->tamanoTablero; i++) {
+
+        for (int j = 0; j < game->tamanoTablero; j++) {
+
+            if (game->tablero[i][j] == 0) {
+                
+                if (posicionCasilla == 0) {
+                    game->tablero[i][j] = valorCasilla;
+                    return;
+                }
+
+            posicionCasilla--;
+            }
+        }
+    }
 }
 
 
@@ -133,22 +152,21 @@ int main() {
     Game game;
     int game_running = 0;
 
-    checkSize(&game);
+    game.tamanoTablero = checkSize(&game);
 
     game_running = init_board(&game);
-
-    if (!game_running) {      
+      
+    if (!game_running) {
         return 1;
     }
-    
-
+     
     addCasillaRandom(&game);
 
     // init_board(&game);
 
     // printTablero(&game);
 
-    // freeTablero(&game);
+    freeTablero(&game);
     
     return 0;
 }
