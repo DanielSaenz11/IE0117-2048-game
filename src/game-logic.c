@@ -91,6 +91,11 @@ void addCasillaRandom(Game* game) {
         return;
     }
 
+    if (game->tablero == NULL) {
+        printf("Error: No se pudo reservar memoria correctamente\n");
+        return 0;
+    }
+
     int casillasVacias = 0;
 
     // Recorrido para verificar existencia de casillas vacias
@@ -135,6 +140,37 @@ void addCasillaRandom(Game* game) {
 }
 
 
+int checkPerder(Game* game) {
+    if (game == NULL) {
+        printf("Error: Direccion de game indefinida\n");
+        return;
+    }
+
+    if (game->tablero == NULL) {
+        printf("Error: No se pudo reservar memoria correctamente\n");
+        return;
+    }
+
+    int casillasVacias = 0;
+
+    for (int i = 0; i < game->tamanoTablero; i++) {
+
+        for (int j = 0; j < game->tamanoTablero; j++) {
+
+            if (game->tablero[i][j] == 0) {
+                casillasVacias++;
+            }
+        }
+    }
+
+    if (casillasVacias == 0) {
+        return 1;
+    }
+
+    return 0;
+}
+
+
 void freeTablero(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
@@ -161,8 +197,6 @@ int main() {
     }
      
     addCasillaRandom(&game);
-
-    // init_board(&game);
 
     // printTablero(&game);
 
