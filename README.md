@@ -105,8 +105,11 @@
 ## Bibliotecas
 
 ### Bibliotecas a utilizar: SDL2
+La siguiente imagen es con fines ilustrativos de la forma en que se va observar el juego al terminar su implementación.
 
-![Imagen del juego 2048](images/2048.png)
+  <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
+    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
+  </a>
 
 ### Bibliotecas a utilizar
 
