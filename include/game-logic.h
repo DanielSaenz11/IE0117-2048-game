@@ -12,9 +12,11 @@ int checkSize();
 
 int init_board(Game* game);
 
-void printTablero(Game* game);
+void printTablero(Game* game); // Terminal debugging
 
 void addCasillaRandom(Game* game);
+
+int checkPerder(Game* game);
 
 void freeTablero(Game* game);
 
