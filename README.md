@@ -24,8 +24,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
+    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
@@ -33,15 +33,7 @@
   <p align="center">
     Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
+    
 </div>
 
 ## Colaboradores
@@ -51,9 +43,9 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- TABLE OF CONTENTS -->
+<!-- TABLA DE CONTENIDOS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Tabla de contenidos</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -80,44 +72,50 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## Acerca del proyecto
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+### Objetivo general
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+**Crear un programa interactivo del juego 2048 en el lenguaje de programación C, por medio del uso de la biblioteca open source SDL2 para la interfaz gráfica del proyecto.**
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Objetivos específicos
 
+1. **Lógica de programación del juego 2048**
+    - Condiciones de victoria/derrota
+    - Movimientos
+    - Combinación de casillas
+2. **Interfaz gráfica con la biblioteca SDL2**
+3. **Documentación detallada del proyecto en GitHub**
+    - Instalación de bibliotecas
+    - Compilación
+    - Ejecución
 
+## Alcances
 
-### Built With
+1. **Interfaz gráfica simple**
+    - Animaciones sencillas de unión de casillas
+    - Puntuación y puntuación máxima arriba del tablero
+    - Tiempo jugado
+2. **Plataforma: Linux**
+3. **Tablero**
+    - 3-5 casillas por lado
+4. **Input del usuario**
+    - Flechas del teclado
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+## Bibliotecas
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Bibliotecas a utilizar: SDL2
 
+![Imagen del juego 2048](images/2048.png)
 
+### Bibliotecas a utilizar
 
-<!-- GETTING STARTED -->
-## Getting Started
+1. `time.h`
+    - Tiempo transcurrido y posición de nuevas casillas
+2. `stdio.h`
+3. `stdlib.h`
+    - Memoria dinámica para el manejo del arreglo de números variable
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
