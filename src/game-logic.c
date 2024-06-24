@@ -174,6 +174,10 @@ int checkPerder(Game* game) {
 }
 
 
+void actualizarPuntuacion(Game* game, int puntuacion) {
+    game->puntuacion += puntuacion;
+}
+
 void freeTablero(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
