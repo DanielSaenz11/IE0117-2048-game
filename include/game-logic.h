@@ -18,6 +18,8 @@ void addCasillaRandom(Game* game);
 
 int checkPerder(Game* game);
 
+void actualizarPuntuacion(Game* game, int puntuacion);
+
 void freeTablero(Game* game);
 
 #endif /* GAME_LOGIC_H */
