@@ -4,7 +4,7 @@
 
 #define MOVEMENT_H
 
-void moverCasillas(Game* game, char direccion);
+int moverCasillas(Game* game, char direccion);
 
 void fusionarCasillas(Game* game, char direccion);
 
