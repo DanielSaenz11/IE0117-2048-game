@@ -2,7 +2,7 @@
 #include "../include/movement.h"
 #include <stdio.h>
 
-void moverCasillas(Game* game, char direccion) {
+int moverCasillas(Game* game, char direccion) {
     int casillasMovidas = 0;
 
 
@@ -92,32 +92,79 @@ void moverCasillas(Game* game, char direccion) {
     
     default:
         printf("Direccion invalida\n");
-        break;
+        return -1;
     }
 
-    
-
-    // if (casillasMovidas) {
-    //     fusionarCasillas(game, direccion);
-    //     moverCasillas(game, direccion);
-    // }
+    return casillasMovidas;
 
 }
 
 
 void fusionarCasillas(Game* game, char direccion) {
-    for (int i=0; i < game->tamanoTablero - 1; i++) {
 
-        for (int j=0; j < game->tamanoTablero; j++) {
+    int filaInicio = 0, filaAvance = 0;
+    int columnaInicio = 0, columnaAvance = 0;
+
+    int filaLimite = game->tamanoTablero, columnaLimite = game->tamanoTablero;
+
+
+    switch (direccion)
+    {
+    case 'u':
+        filaAvance = 1;
+
+        break;
+
+    case 'd':
+        filaInicio = game->tamanoTablero -1;
+        filaAvance = -1;
+        filaLimite = -1;
+
+        break;
+
+    case 'l':
+        columnaAvance = 1;
+
+        break;
+
+    case 'r':
+        columnaInicio = game->tamanoTablero -1;
+        columnaAvance = -1;
+        columnaLimite = -1;
+
+        break;
+
+    default:
+        printf("Direccion invalida\n");
+        return;
+    }
+
+    for (int i=filaInicio; i != filaLimite; i+=(filaAvance!=0 ? filaAvance : 1)) {
+
+        for (int j=columnaInicio; j != columnaLimite; j+=(columnaAvance!=0 ? columnaAvance : 1)) {
             
-            // No es una casilla vacia
-            if ((game->tablero[i][j] != 0) && (game->tablero[i][j] == game->tablero[i+1][j])) {
-                
-                game->tablero[i][j] *= 2;
-                game->tablero[i+1][j] = 0;
+            if ((i+filaAvance >= 0) && (i+filaAvance < game->tamanoTablero) && (j+columnaAvance >= 0) && (j+columnaAvance < game->tamanoTablero)) {
 
-                actualizarPuntuacion(game, game->tablero[i][j]);
+                // No es una casilla vacia
+                if ((game->tablero[i][j] != 0) && (game->tablero[i][j] == game->tablero[i+filaAvance][j+columnaAvance])) {
+                    
+                    game->tablero[i][j] *= 2;
+                    game->tablero[i+filaAvance][j+columnaAvance] = 0;
+
+                    actualizarPuntuacion(game, game->tablero[i][j]);
+
+                    // if (direccion == 'u' || direccion == 'd') {
+                    //     i += filaAvance; 
+                    // }
+                    // else {
+                    //     j += columnaAvance;
+                    // }
+                    j += columnaAvance;
+
+                }
             }
         }
-    }
+    }    
+    
 }
+
