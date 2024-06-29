@@ -10,6 +10,8 @@ typedef struct Game {
 
 int checkSize();
 
+char checkTecla();
+
 int init_board(Game* game);
 
 void printTablero(Game* game); // Terminal debugging
