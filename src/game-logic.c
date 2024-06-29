@@ -38,6 +38,33 @@ int checkSize() {
     return numero;
 }
 
+char checkTecla() {
+    int esValido = 0;
+    char c;
+    char direccion;
+
+    while (!esValido) {
+        printf("Direccion:\n");
+        
+
+        if (scanf("%c", &direccion) == 1) {
+            if (direccion == 'u' || direccion == 'd' || direccion == 'r' || direccion == 'l' || direccion == 'q') {
+                esValido = 1;
+            }
+        }
+
+        else {
+            printf("Entrada invalida. Ingrese los siguientes caracteres (u|d|l|r|q).\n\n");
+        }
+
+        // Limpiar buffer de entrada
+        while ((c = getchar()) != '\n') {
+        }
+
+    }
+
+    return direccion;
+}
 
 /*
  * init_board() reserva la memoria dinamica para el tablero
