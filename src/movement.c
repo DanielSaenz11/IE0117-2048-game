@@ -139,6 +139,7 @@ void fusionarCasillas(Game* game, char direccion) {
         return;
     }
 
+
     for (int i=filaInicio; i != filaLimite; i+=(filaAvance!=0 ? filaAvance : 1)) {
 
         for (int j=columnaInicio; j != columnaLimite; j+=(columnaAvance!=0 ? columnaAvance : 1)) {
@@ -147,18 +148,12 @@ void fusionarCasillas(Game* game, char direccion) {
 
                 // No es una casilla vacia
                 if ((game->tablero[i][j] != 0) && (game->tablero[i][j] == game->tablero[i+filaAvance][j+columnaAvance])) {
-                    
+
                     game->tablero[i][j] *= 2;
                     game->tablero[i+filaAvance][j+columnaAvance] = 0;
 
                     actualizarPuntuacion(game, game->tablero[i][j]);
 
-                    // if (direccion == 'u' || direccion == 'd') {
-                    //     i += filaAvance; 
-                    // }
-                    // else {
-                    //     j += columnaAvance;
-                    // }
                     j += columnaAvance;
 
                 }
