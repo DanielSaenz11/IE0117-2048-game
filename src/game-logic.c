@@ -4,6 +4,12 @@
 #include <stdlib.h>
 
 
+/*
+ * checkSize() verifica el que el input del usuario sea un entero
+ * en el rango establecido
+ * 
+ * @return numero: Numero entero entre 3-5
+*/
 int checkSize() {
     int numero = 0;
     int esValido = 0;
@@ -32,6 +38,12 @@ int checkSize() {
     return numero;
 }
 
+
+/*
+ * init_board() reserva la memoria dinamica para el tablero
+ * @param Game* game: Puntero al struct game
+ * @return estadoReservacionMemoria (****** Pendiente *******)
+*/
 int init_board(Game* game) {
 
     if (game == NULL) {
@@ -65,7 +77,11 @@ int init_board(Game* game) {
     return 1;
 }
 
-// Funcion temporal para la terminal
+/*
+ * printTablero(Game* game) imprime el tablero en la terminal (DEBUGGING)
+ * 
+ * @param Game* game: Puntero al struct game
+ */
 void printTablero(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
@@ -86,6 +102,10 @@ void printTablero(Game* game) {
 
 }
 
+/*
+ * addCasillaRandom() anade una casilla nueva entre las casillas vacias
+ * @param Game* game: Puntero al struct game
+ */
 void addCasillaRandom(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
@@ -141,6 +161,9 @@ void addCasillaRandom(Game* game) {
 }
 
 /*
+ * checkPerder() verifica si no hay movimientos disponibles
+ * 
+ * @param Game* game: Puntero al struct game
  * @return 1: Perdio
  * @return 0: No ha perdido
  */
@@ -174,11 +197,22 @@ int checkPerder(Game* game) {
     return 0;
 }
 
-
+/*
+ * actualizarPuntuacion() cambia el valor de la variable puntuacion con el valor de fusion
+ * 
+ * @param1 Game* game: Puntero al struct game
+ * @param2 int puntuacion: Valor de fusion para cambiar la puntuacion
+ */
 void actualizarPuntuacion(Game* game, int puntuacion) {
     game->puntuacion += puntuacion;
 }
 
+
+/*
+ * freeTablero() libera la memoria dinamica reservada para el tablero
+ * 
+ * @param1 Game* game: Puntero al struct game
+ */
 void freeTablero(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
