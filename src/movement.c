@@ -2,6 +2,14 @@
 #include "../include/movement.h"
 #include <stdio.h>
 
+
+/*
+ * moverCasillas() realiza el movimientos de las casillas en una direccion dada
+ * 
+ * @param1 Game* game: Puntero al struct game
+ * @param2 char direccion: Direccion indicada de movimiento (u|d|r|l)
+ * @return (***** Pendiente ******)
+ */
 int moverCasillas(Game* game, char direccion) {
     int casillasMovidas = 0;
 
@@ -159,7 +167,6 @@ void fusionarCasillas(Game* game, char direccion) {
                 }
             }
         }
-    }    
+    }
     
 }
-
