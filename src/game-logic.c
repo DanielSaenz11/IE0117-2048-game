@@ -24,7 +24,7 @@ int checkSize() {
         }
 
         // Limpiar buffer de entrada
-        while ((c = getchar()) != '\n' && c != EOF) {
+        while ((c = getchar()) != '\n') {
         }
 
     }
@@ -71,7 +71,7 @@ void printTablero(Game* game) {
         printf("Error: Direccion de game indefinida\n");
     }
 
-    printf("Puntuacion: %d\n\n", game->puntuacion);
+    printf("Puntuacion: %d\n", game->puntuacion);
     
     for (int i = 0; i < game->tamanoTablero; i++) {
         printf("| ");
@@ -82,6 +82,7 @@ void printTablero(Game* game) {
 
         printf("\n");
     }
+    printf("\n");
 
 }
 
