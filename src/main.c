@@ -19,7 +19,7 @@ int main() {
     
 
     if (!game_running) {
-        return 1;
+        return EXIT_FAILURE;
     }
 
     do {
@@ -39,5 +39,5 @@ int main() {
 
     freeTablero(&game);
     
-    return 0;
+    return EXIT_SUCCESS;
 }
