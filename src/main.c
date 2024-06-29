@@ -7,45 +7,35 @@ int main() {
 
     srand(time(NULL));
 
-    char direccion = 'd';
+    char direccion;
 
     Game game;
     int game_running = 0;
 
+    
     game.tamanoTablero = checkSize(&game);
 
     game_running = init_board(&game);
-      
+    
+
     if (!game_running) {
         return 1;
     }
-     
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
-    // addCasillaRandom(&game);
 
-    game.tablero[0][0] = 2;
-    game.tablero[1][0] = 2;
-    game.tablero[2][0] = 2;
-    game.tablero[3][0] = 2;
+    do {
+        addCasillaRandom(&game);
 
-    printTablero(&game);
+        printTablero(&game);
 
-    int casillasMovidas = moverCasillas(&game, direccion);
+        direccion = checkTecla();
 
-    if (casillasMovidas) {
-        fusionarCasillas(&game, direccion);
-        //printTablero(&game);
+        if (direccion == 'q') break;
+
         moverCasillas(&game, direccion);
-    }
+        fusionarCasillas(&game, direccion);
+        moverCasillas(&game, direccion);
 
-    printTablero(&game);
+    } while ((direccion != 'q') && !(checkPerder(&game)));
 
     freeTablero(&game);
     
