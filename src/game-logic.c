@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 
 /*
@@ -44,7 +46,7 @@ char checkTecla() {
     char direccion;
 
     while (!esValido) {
-        printf("Direccion:\n");
+        printf("Direccion (u|d|l|r|q):\n");
         
 
         if (scanf("%c", &direccion) == 1) {
@@ -74,7 +76,7 @@ char checkTecla() {
 int init_board(Game* game) {
 
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
         return 0;
     }
 
