@@ -20,19 +20,50 @@ int initSDLAndWindow(Window* window) {
 
 // Función para renderizar el juego en la ventana
 void renderizarTablero(Game* game, SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Color de fondo blanco
+    SDL_RenderClear(renderer); // Limpiar la pantalla
 
-    // Implementa aquí la lógica para renderizar el juego según el estado actual del juego en `game`
-    // Por ejemplo:
-    // SDL_Rect rect;
-    // rect.x = 0;
-    // rect.y = 0;
-    // rect.w = 100;
-    // rect.h = 100;
-    // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    // SDL_RenderFillRect(renderer, &rect);
+    // Calcula el tamaño de cada celda basado en el tamaño de la ventana y el tablero
+    int cellSize = WINDOW_WIDTH / game->tamanoTablero;
 
+    // Itera sobre el tablero y dibuja cada celda
+    for (int i = 0; i < game->tamanoTablero; ++i) {
+        for (int j = 0; j < game->tamanoTablero; ++j) {
+            // Calcula las coordenadas de la celda en la ventana
+            SDL_Rect cellRect;
+            cellRect.x = j * cellSize;
+            cellRect.y = i * cellSize;
+            cellRect.w = cellSize;
+            cellRect.h = cellSize;
+
+            // Dibuja el fondo de la celda (puedes ajustar esto según tu diseño)
+            SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255); // Color de fondo de la celda
+            SDL_RenderFillRect(renderer, &cellRect);
+
+            // Dibuja el contenido de la celda (números u otros elementos del juego)
+            if (game->tablero[i][j] != 0) {
+                // Por ejemplo, dibuja números dentro de las celdas
+                SDL_Color textColor = { 0, 0, 0, 255 }; // Color del texto (negro)
+                char cellText[5]; // Para almacenar el texto de la celda
+                snprintf(cellText, sizeof(cellText), "%d", game->tablero[i][j]); // Convierte el número a cadena
+
+                // Crea una superficie de texto
+                SDL_Surface* textSurface = TTF_RenderText_Solid(font, cellText, textColor);
+                if (textSurface != NULL) {
+                    // Crea una textura desde la superficie
+                    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+                    if (textTexture != NULL) {
+                        // Dibuja la textura en la celda
+                        SDL_RenderCopy(renderer, textTexture, NULL, &cellRect);
+                        SDL_DestroyTexture(textTexture); // Libera la textura después de usarla
+                    }
+                    SDL_FreeSurface(textSurface); // Libera la superficie después de usarla
+                }
+            }
+        }
+    }
+
+    // Actualiza la ventana con los cambios realizados
     SDL_RenderPresent(renderer);
 }
 
@@ -73,12 +104,21 @@ int ejecutarJuego() {
         }
     }
 
+    // Inicialización del juego con el tamaño seleccionado
+    game.tamanoTablero = boardSize;
+    if (!init_board(&game)) {
+        printf("Error al inicializar el tablero del juego.\n");
+        cleanupWindow(&window);
+        return -1;
+    }
+
     // Bucle principal del juego
     while (!game.quit) {
         manejarEventos(&game);
         renderizarTablero(&game, window.renderer);
     }
 
+    // Limpiar y salir
     cleanupWindow(&window);
     return 0;
 }
