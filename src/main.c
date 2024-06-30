@@ -5,8 +5,11 @@
 #include "../include/gui.h"
 #include "../include/game-logic.h"
 #include "../include/movement.h"
-
 #define TICK_INTERVAL 100
+
+
+// Declaración de la función renderizarTablero
+void renderizarTablero(Game* game, SDL_Renderer* renderer);
 
 int main() {
     // Estructuras para la ventana y el juego
