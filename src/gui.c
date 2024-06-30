@@ -1,8 +1,27 @@
 #include "../include/gui.h"
+#include "../include/window.h" // Incluir el archivo de cabecera de window.h
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
+// Declarar variables globales para el tamaño del tablero y la ventana
+int boardSize = 4;
+Window window;
+
+// Función para inicializar SDL, ventana y cargar recursos necesarios
+int initSDLAndWindow() {
+    if (initSDL(&window) != 0) {
+        printf("Error al inicializar SDL y la ventana.\n");
+        return -1;
+    }
+
+    return 0;
+}
+
+// Función para renderizar el juego en la ventana
 void renderizarTablero(Game* game, SDL_Renderer* renderer) {
+    // Implementar la lógica para renderizar el tablero según el estado del juego
+    // Utilizar SDL_Renderer* renderer para dibujar los elementos del juego
+    // Por ejemplo:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
     SDL_RenderClear(renderer); // Limpiar el renderizador con el color de fondo
 
@@ -15,45 +34,52 @@ void renderizarTablero(Game* game, SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Color rojo para el cuadrado
     SDL_RenderFillRect(renderer, &rect); // Dibujar el cuadrado en el renderizador
 
-    // Ejemplo: Renderizar texto usando SDL_ttf
-    TTF_Font* font = TTF_OpenFont("path_to_your_font_file.ttf", 24); // Cargar una fuente TTF (reemplaza con tu propia ruta)
-    if (font == NULL) {
-        // Manejar error si la fuente no se carga correctamente
-        printf("Error al cargar la fuente: %s\n", TTF_GetError());
-        return;
+    // Ejemplo: Renderizar el tablero del juego (reemplazar con tu propia lógica de renderizado)
+    
+    SDL_RenderPresent(renderer); // Mostrar el renderizado en pantalla
+}
+
+// Función para manejar eventos del juego
+void manejarEventos(Game* game) {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                game->quit = true;
+                break;
+            case SDL_KEYDOWN:
+                // Manejar teclas según sea necesario
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+// Función principal del juego
+int main(int argc, char* argv[]) {
+    Game game;
+    // Inicializar SDL y la ventana
+    if (initSDLAndWindow() != 0) {
+        printf("Error al inicializar SDL y la ventana.\n");
+        return -1;
     }
 
-    SDL_Color textColor = {0, 0, 0, 255}; // Color del texto (negro en este caso)
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Hello, SDL!", textColor); // Renderizar texto en una superficie
-    if (textSurface == NULL) {
-        // Manejar error si no se puede renderizar el texto
-        printf("Error al renderizar texto: %s\n", TTF_GetError());
-        TTF_CloseFont(font);
-        return;
+    // Bucle principal del juego
+    while (!game.quit) {
+        manejarEventos(&game); // Manejar eventos del juego
+
+        if (boardSize == 0) {
+            if (createBoardSizeWindow(&window, &boardSize) != 0) {
+                printf("Error al crear la ventana de selección del tamaño del tablero.\n");
+                break;
+            }
+        } else {
+            renderizarTablero(&game, window.renderer); // Renderizar el juego en la ventana
+        }
     }
 
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface); // Crear textura desde la superficie de texto
-    if (textTexture == NULL) {
-        // Manejar error si no se puede crear la textura desde la superficie
-        printf("Error al crear la textura del texto: %s\n", SDL_GetError());
-        SDL_FreeSurface(textSurface);
-        TTF_CloseFont(font);
-        return;
-    }
-
-    // Posicionar y renderizar la textura del texto
-    SDL_Rect textRect;
-    textRect.x = 200;
-    textRect.y = 200;
-    SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h); // Obtener dimensiones de la textura
-    SDL_RenderCopy(renderer, textTexture, NULL, &textRect); // Copiar la textura al renderizador
-
-    // Liberar recursos
-    SDL_DestroyTexture(textTexture);
-    SDL_FreeSurface(textSurface);
-    TTF_CloseFont(font);
-
-    // Ejemplo: Renderizar el tablero del juego (reemplaza con tu propia lógica de renderizado)
-
-    SDL_RenderPresent(renderer); // Mostrar todos los renderizados en pantalla
+    // Limpiar recursos y salir
+    cleanupWindow(&window);
+    return 0;
 }
