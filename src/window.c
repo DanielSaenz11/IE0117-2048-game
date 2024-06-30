@@ -1,39 +1,56 @@
-// window.c
-
-#include "window.h"
+#include "../include/window.h"
 #include <stdio.h>
+#include <SDL2/SDL_ttf.h>
 
-SDL_Window* ventana = NULL;
-SDL_Renderer* renderer = NULL;
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
 
-int initSDL() {
+int initSDL(Window* window) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
-        return 0;
+        printf("Error al inicializar SDL: %s\n", SDL_GetError());
+        return -1;
     }
 
-    ventana = SDL_CreateWindow("2048 Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-    if (!ventana) {
-        fprintf(stderr, "Error al crear la ventana: %s\n", SDL_GetError());
+    window->window = SDL_CreateWindow("Seleccionar Tamaño del Tablero",
+                                      SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                      WINDOW_WIDTH, WINDOW_HEIGHT,
+                                      SDL_WINDOW_SHOWN);
+    if (window->window == NULL) {
+        printf("Error al crear la ventana: %s\n", SDL_GetError());
         SDL_Quit();
-        return 0;
+        return -1;
     }
 
-    renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
-        fprintf(stderr, "Error al crear el renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(ventana);
+    window->renderer = SDL_CreateRenderer(window->window, -1, SDL_RENDERER_ACCELERATED);
+    if (window->renderer == NULL) {
+        printf("Error al crear el renderer: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window->window);
         SDL_Quit();
-        return 0;
+        return -1;
     }
 
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    if (TTF_Init() < 0) {
+        printf("Error al inicializar SDL_ttf: %s\n", TTF_GetError());
+        SDL_DestroyRenderer(window->renderer);
+        SDL_DestroyWindow(window->window);
+        SDL_Quit();
+        return -1;
+    }
 
-    return 1;
+    return 0;
 }
 
-void closeSDL() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(ventana);
+int createBoardSizeWindow(Window* window, int* boardSize) {
+    // Implementar la ventana de selección del tamaño del tablero aquí
+    // Usar SDL_Renderer* renderer de window->renderer para renderizar elementos
+    // Manejar eventos de SDL para la entrada del usuario y la validación del tamaño del tablero
+
+    return 0;
+}
+
+void cleanupWindow(Window* window) {
+    SDL_DestroyRenderer(window->renderer);
+    SDL_DestroyWindow(window->window);
+    TTF_Quit();
     SDL_Quit();
 }
