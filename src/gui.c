@@ -4,6 +4,7 @@
 #include "../include/game-logic.h"
 #include "../include/movement.h"
 #include <stdbool.h>
+#include <SDL2/SDL_ttf.h> // Asegúrate de incluir SDL2_ttf
 
 TTF_Font* font = NULL; // Inicialización de la variable global de la fuente
 
