@@ -1,14 +1,15 @@
-// window.h
-
 #ifndef WINDOW_H
 #define WINDOW_H
 
 #include <SDL2/SDL.h>
 
-extern SDL_Window* ventana;
-extern SDL_Renderer* renderer;
+typedef struct {
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+} Window;
 
-int initSDL();
-void closeSDL();
+int initSDL(Window* window);
+int createBoardSizeWindow(Window* window, int* boardSize);
+void cleanupWindow(Window* window);
 
-#endif // WINDOW_H
+#endif /* WINDOW_H */
