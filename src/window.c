@@ -1,4 +1,5 @@
 #include "../include/window.h"
+#include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
 
 int createBoardSizeWindow(Window* window, int* boardSize) {
     SDL_SetRenderDrawColor(window->renderer, 255, 255, 255, 255); // Color de fondo blanco
