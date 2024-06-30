@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #include <SDL2/SDL.h>
+#include "game-logic.h"  // Asumiendo que aquí se encuentra la definición de Game
 
 // Definir las dimensiones de la ventana
 #define WINDOW_WIDTH 800
