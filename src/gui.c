@@ -7,10 +7,10 @@
 // Tamaño de cada casilla del juego
 #define TILE_SIZE 100
 
-// Colores para las casillas (ejemplo)
-#define COLOR_BACKGROUND {34, 49, 63, 255} // Azul oscuro
-#define COLOR_TILE {149, 165, 166, 255}     // Plata
-#define COLOR_TEXT {236, 240, 241, 255}    // Blanco
+// Definir colores como constantes SDL_Color
+const SDL_Color COLOR_BACKGROUND = {34, 49, 63, 255}; // Azul oscuro
+const SDL_Color COLOR_TILE = {149, 165, 166, 255};    // Plata
+const SDL_Color COLOR_TEXT = {236, 240, 241, 255};    // Blanco
 
 // Función para dibujar un rectángulo en el renderer
 static void dibujarRectangulo(SDL_Renderer *renderer, int x, int y, int w, int h, SDL_Color color) {
@@ -33,12 +33,11 @@ void renderizarTablero(Game *game) {
             int x = j * TILE_SIZE;
             int y = i * TILE_SIZE;
 
-            // Dibujar el rectángulo de la casilla con un color según su valor (ejemplo)
-            SDL_Color color = COLOR_TILE;
+            // Dibujar el rectángulo de la casilla con un color según su valor
             if (valor > 0) {
-                dibujarRectangulo(renderer, x, y, TILE_SIZE, TILE_SIZE, color);
+                dibujarRectangulo(renderer, x, y, TILE_SIZE, TILE_SIZE, COLOR_TILE);
 
-                // Dibujar el número en el centro de la casilla (ejemplo)
+                // Dibujar el número en el centro de la casilla
                 SDL_Color textColor = COLOR_TEXT;
                 SDL_Surface *surface = NULL;
                 SDL_Texture *texture = NULL;
@@ -46,7 +45,8 @@ void renderizarTablero(Game *game) {
                 char texto[16];
                 snprintf(texto, sizeof(texto), "%d", valor);
 
-                // Crear una superficie con el texto
+                // Crear una superficie con el texto (requiere SDL_ttf)
+                TTF_Font *font = NULL; // Asegúrate de inicializar este con tu fuente
                 surface = TTF_RenderText_Solid(font, texto, textColor);
 
                 // Crear una textura a partir de la superficie
