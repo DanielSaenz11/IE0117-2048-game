@@ -1,119 +1,122 @@
-#include "../include/gui.h"
-#include "../include/game-logic.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <stdio.h>
 
-// Tamaño de cada casilla del juego
-#define TILE_SIZE 100
+// Dimensiones de la ventana
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
 
-// Definir colores como constantes SDL_Color
-const SDL_Color COLOR_BACKGROUND = {34, 49, 63, 255}; // Azul oscuro
-const SDL_Color COLOR_TILE = {149, 165, 166, 255};    // Plata
-const SDL_Color COLOR_TEXT = {236, 240, 241, 255};    // Blanco
-
-SDL_Window *ventana = NULL;
-SDL_Renderer *renderer = NULL;
-
-// Función para dibujar un rectángulo en el renderer
-static void dibujarRectangulo(SDL_Renderer *renderer, int x, int y, int w, int h, SDL_Color color) {
-    SDL_Rect rect = {x, y, w, h};
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_RenderFillRect(renderer, &rect);
+// Función para renderizar texto en la ventana
+void renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color color, int x, int y) {
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    int text_width = surface->w;
+    int text_height = surface->h;
+    SDL_FreeSurface(surface);
+    SDL_Rect destRect = { x, y, text_width, text_height };
+    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+    SDL_DestroyTexture(texture);
 }
 
-void initSDL() {
+int main(int argc, char* argv[]) {
+    // Inicializar SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
-        exit(EXIT_FAILURE);
+        printf("Error al inicializar SDL: %s\n", SDL_GetError());
+        return -1;
     }
 
-    if (TTF_Init() == -1) {
-        fprintf(stderr, "Error al inicializar SDL_ttf: %s\n", TTF_GetError());
+    // Inicializar SDL_ttf
+    if (TTF_Init() < 0) {
+        printf("Error al inicializar SDL_ttf: %s\n", TTF_GetError());
         SDL_Quit();
-        exit(EXIT_FAILURE);
+        return -1;
     }
 
-    ventana = SDL_CreateWindow("2048", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * 4, TILE_SIZE * 4, SDL_WINDOW_SHOWN);
-    if (!ventana) {
-        fprintf(stderr, "Error al crear la ventana: %s\n", SDL_GetError());
+    // Crear una ventana
+    SDL_Window* window = SDL_CreateWindow("Seleccionar Tamaño del Tablero",
+                                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                          WINDOW_WIDTH, WINDOW_HEIGHT,
+                                          SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        printf("Error al crear la ventana: %s\n", SDL_GetError());
         TTF_Quit();
         SDL_Quit();
-        exit(EXIT_FAILURE);
+        return -1;
     }
 
-    renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
-        fprintf(stderr, "Error al crear el renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(ventana);
+    // Crear un renderer
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+        printf("Error al crear el renderer: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
         TTF_Quit();
         SDL_Quit();
-        exit(EXIT_FAILURE);
+        return -1;
     }
-}
 
-void renderizarTablero(Game *game) {
-    // Limpiar el renderer con un color de fondo
-    SDL_SetRenderDrawColor(renderer, COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b, COLOR_BACKGROUND.a);
-    SDL_RenderClear(renderer);
+    // Cargar fuente
+    TTF_Font* font = TTF_OpenFont("path/to/font.ttf", 24); // Reemplaza con la ruta a tu fuente
+    if (font == NULL) {
+        printf("Error al cargar la fuente: %s\n", TTF_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return -1;
+    }
 
-    // Dibujar las casillas del tablero
-    for (int i = 0; i < game->tamanoTablero; ++i) {
-        for (int j = 0; j < game->tamanoTablero; ++j) {
-            int valor = game->tablero[i][j];
+    // Variables para manejar la entrada del usuario
+    int boardSize = 0;
+    int running = 1;
+    int textInputActive = 1;
+    SDL_StartTextInput();
+    char inputText[3] = "";
+    SDL_Color textColor = { 255, 255, 255, 255 };
 
-            // Calcular la posición de la casilla en la ventana
-            int x = j * TILE_SIZE;
-            int y = i * TILE_SIZE;
-
-            // Dibujar el rectángulo de la casilla con un color según su valor
-            dibujarRectangulo(renderer, x, y, TILE_SIZE, TILE_SIZE, COLOR_TILE);
-
-            if (valor > 0) {
-                // Dibujar el número en el centro de la casilla
-                SDL_Color textColor = COLOR_TEXT;
-                SDL_Surface *surface = NULL;
-                SDL_Texture *texture = NULL;
-
-                char texto[16];
-                snprintf(texto, sizeof(texto), "%d", valor);
-
-                // Crear una superficie con el texto (requiere SDL_ttf)
-                TTF_Font *font = TTF_OpenFont("ruta/a/tu/fuente.ttf", 24); // Ajusta la ruta y tamaño de la fuente
-                if (!font) {
-                    fprintf(stderr, "Error al cargar la fuente: %s\n", TTF_GetError());
-                    return; // Manejar el error adecuadamente según tu aplicación
+    // Bucle principal
+    SDL_Event event;
+    while (running) {
+        // Manejar eventos
+        while (SDL_PollEvent(&event) != 0) {
+            if (event.type == SDL_QUIT) {
+                running = 0;
+            } else if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_RETURN && textInputActive) {
+                    boardSize = atoi(inputText);
+                    if (boardSize >= 3 && boardSize <= 5) {
+                        textInputActive = 0; // Dejar de recibir entrada de texto
+                        running = 0; // Salir del bucle principal
+                    } else {
+                        sprintf(inputText, ""); // Resetear entrada si no es válida
+                    }
                 }
-
-                surface = TTF_RenderText_Solid(font, texto, textColor);
-                if (!surface) {
-                    fprintf(stderr, "Error al crear la superficie de texto: %s\n", TTF_GetError());
-                    TTF_CloseFont(font);
-                    return;
-                }
-
-                // Crear una textura a partir de la superficie
-                texture = SDL_CreateTextureFromSurface(renderer, surface);
-                if (!texture) {
-                    fprintf(stderr, "Error al crear la textura del texto: %s\n", SDL_GetError());
-                    SDL_FreeSurface(surface);
-                    TTF_CloseFont(font);
-                    return;
-                }
-
-                // Dibujar la textura centrada en la casilla
-                SDL_Rect destRect = {x + TILE_SIZE / 2 - surface->w / 2, y + TILE_SIZE / 2 - surface->h / 2, surface->w, surface->h};
-                SDL_RenderCopy(renderer, texture, NULL, &destRect);
-
-                // Liberar la superficie y la textura
-                SDL_FreeSurface(surface);
-                SDL_DestroyTexture(texture);
-
-                // Cerrar la fuente
-                TTF_CloseFont(font);
+            } else if (event.type == SDL_TEXTINPUT && textInputActive) {
+                strcat(inputText, event.text.text);
             }
         }
+
+        // Renderizar
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Color de fondo (negro)
+        SDL_RenderClear(renderer);
+
+        // Renderizar texto de entrada
+        renderText(renderer, font, "Ingrese el tamano del tablero (3-5):", textColor, 50, 50);
+        renderText(renderer, font, inputText, textColor, 50, 100);
+
+        // Actualizar la pantalla
+        SDL_RenderPresent(renderer);
     }
 
-    // Actualizar la pantalla (renderizar)
-    SDL_RenderPresent(renderer);
+    SDL_StopTextInput();
+
+    // Limpiar y salir
+    TTF_CloseFont(font);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    TTF_Quit();
+    SDL_Quit();
+
+    printf("Tamaño del tablero seleccionado: %d\n", boardSize);
+
+    return 0;
 }
