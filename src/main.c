@@ -1,5 +1,6 @@
 #include "../include/game-logic.h"
 #include "../include/movement.h"
+#include "../include/gui."
 #include <stdlib.h>
 #include <time.h>
 
