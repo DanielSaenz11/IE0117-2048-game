@@ -1,14 +1,15 @@
 #include "../include/window.h"
-#include <stdio.h>
+#include <SDL2/SDL_ttf.h>
+
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
 
 int initSDL(Window* window) {
-    // Inicializar SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Error al inicializar SDL: %s\n", SDL_GetError());
         return -1;
     }
 
-    // Crear ventana
     window->window = SDL_CreateWindow("Seleccionar Tamaño del Tablero",
                                       SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                       WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -19,7 +20,6 @@ int initSDL(Window* window) {
         return -1;
     }
 
-    // Crear renderer
     window->renderer = SDL_CreateRenderer(window->window, -1, SDL_RENDERER_ACCELERATED);
     if (window->renderer == NULL) {
         printf("Error al crear el renderer: %s\n", SDL_GetError());
@@ -28,7 +28,6 @@ int initSDL(Window* window) {
         return -1;
     }
 
-    // Inicializar SDL_ttf
     if (TTF_Init() < 0) {
         printf("Error al inicializar SDL_ttf: %s\n", TTF_GetError());
         SDL_DestroyRenderer(window->renderer);
@@ -41,10 +40,7 @@ int initSDL(Window* window) {
 }
 
 int createBoardSizeWindow(Window* window, int* boardSize) {
-    // Aquí deberías implementar la lógica para la ventana de selección de tamaño del tablero
-    // Utilizando SDL_Renderer* renderer de window->renderer para renderizar elementos gráficos
-    // Manejando eventos de SDL para la entrada del usuario y validación del tamaño del tablero
-
+    // Implementa la lógica para la ventana de selección del tamaño del tablero aquí
     return 0;
 }
 
