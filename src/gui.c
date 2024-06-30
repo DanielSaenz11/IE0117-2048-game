@@ -3,7 +3,7 @@
 #include "../include/gui.h"
 #include "../include/game-logic.h"
 #include "../include/movement.h"
-
+#include <stdbool.h> // Asegúrate de incluir <stdbool.h> para usar el tipo de datos bool y la constante true
 
 // Variable global para el tamaño del tablero
 extern int boardSize;
