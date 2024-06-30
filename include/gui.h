@@ -22,4 +22,7 @@ int createBoardSizeWindow(Window* window, int* boardSize);
 // Función para limpiar recursos de la ventana
 void cleanupWindow(Window* window);
 
+void renderizarTablero(Game* game, SDL_Renderer* renderer);
+void manejarEventos(Game* game);
+
 #endif /* WINDOW_H */
