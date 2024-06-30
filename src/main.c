@@ -46,16 +46,16 @@ int main() {
         // Manejar eventos de SDL
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                quit = 1; // Establecer la condición para salir
+                quit = 1; // Establecer la condición para salir al cerrar la ventana
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                    // Manejar otras teclas según tu lógica de juego
+                    // Manejar tecla de movimiento
                     case SDLK_UP:
                         direccion = 'u';
                         break;
-                    // Otros casos...
+                    // Otros casos de teclas de movimiento según tu juego
                     case SDLK_q:
-                        quit = 1;
+                        quit = 1; // Presionar 'q' para salir del juego
                         break;
                     default:
                         break;
