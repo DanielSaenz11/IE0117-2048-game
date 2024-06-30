@@ -3,6 +3,7 @@
 #ifndef GUI_H
 #define GUI_H
 
+#include "game-logic.h"
 #include <SDL2/SDL.h>
 
 // Declaración de variables globales como externas
