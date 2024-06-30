@@ -10,6 +10,7 @@
 int main() {
     // Estructura para la ventana y renderer
     Window window;
+    Game game;
 
     // Inicialización de SDL y creación de ventana para selección de tamaño
     if (initSDL(&window) != 0) {
