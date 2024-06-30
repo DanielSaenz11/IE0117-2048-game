@@ -1,8 +1,9 @@
 // gui.c
-#include "../include/gui.h"
 #include "../include/window.h"
-#include <stdio.h>
-#include <stdbool.h>
+#include "../include/gui.h"
+#include "../include/game-logic.h"
+#include "../include/movement.h"
+
 
 // Variable global para el tamaño del tablero
 extern int boardSize;
