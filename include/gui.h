@@ -1,10 +1,17 @@
+// gui.h
+
 #ifndef GUI_H
 #define GUI_H
 
-#include <SDL2/SDL.h>
-#include "../include/game-logic.h" // Incluir el archivo de encabezado de lógica de juego si es necesario
+#include "game-logic.h" // Asegúrate de incluir el archivo de encabezado adecuado para `Game`
+
+typedef struct {
+    bool quit; // Campo para indicar si el juego debe salir
+    // Otros campos necesarios para el estado del juego
+} Game;
 
 void renderizarTablero(Game* game, SDL_Renderer* renderer);
-// Otros prototipos de funciones para la interfaz gráfica si es necesario
+void manejarEventos(Game* game);
+int createBoardSizeWindow(Window* window, int* boardSize);
 
-#endif // GUI_H
+#endif /* GUI_H */
