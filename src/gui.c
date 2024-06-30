@@ -8,6 +8,8 @@
 
 TTF_Font* font = NULL; // Inicialización de la variable global de la fuente
 
+extern int boardSize;
+
 // Función para inicializar la fuente
 int initFont() {
     font = TTF_OpenFont("path_to_your_font.ttf", 28); // Reemplaza con la ruta a tu archivo de fuente y el tamaño deseado
