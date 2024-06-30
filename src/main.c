@@ -7,7 +7,7 @@
 #include "../include/movement.h"
 #define TICK_INTERVAL 100
 
-int boardSize = 0; // Define e inicializa boardSize aquí
+extern int boardSize = 0; // Define e inicializa boardSize aquí
 int main() {
     // Estructura para la ventana y renderer
     Window window;
