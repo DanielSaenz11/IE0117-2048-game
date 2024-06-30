@@ -10,6 +10,7 @@ typedef struct {
 
 // Definir el tamaño del texto
 #define TEXT_SIZE 30
+int createBoardSizeWindow(Window* window, int* boardSize);
 int initSDL(Window* window);
 void cleanupWindow(Window* window);
 
