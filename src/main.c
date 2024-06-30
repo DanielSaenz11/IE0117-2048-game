@@ -13,7 +13,7 @@ int main() {
     Window window;
     Game game;
 
-    // Inicialización de SDL y creación de ventana para selección de tamaño
+    // Inicialización de SDL y creación de ventana
     if (initSDL(&window) != 0) {
         fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
         return EXIT_FAILURE;
@@ -21,11 +21,15 @@ int main() {
 
     // Crear ventana para seleccionar tamaño del tablero
     int tamanoTablero = 0;
-    if (createBoardSizeWindow(&window, &tamanoTablero) != 0) {
-        fprintf(stderr, "Error al seleccionar el tamaño del tablero.\n");
-        cleanupWindow(&window);
-        return EXIT_FAILURE;
-    }
+    do {
+        if (tamanoTablero < 3 || tamanoTablero > 5) {
+            printf("Ingresa el tamaño del tablero (entre 3 y 5): ");
+            scanf("%d", &tamanoTablero);
+            if (tamanoTablero < 3 || tamanoTablero > 5) {
+                printf("Tamaño inválido. Intenta de nuevo.\n");
+            }
+        }
+    } while (tamanoTablero < 3 || tamanoTablero > 5);
 
     // Inicialización del juego
     srand(time(NULL));
@@ -40,22 +44,29 @@ int main() {
     SDL_Event event;
     char direccion = ' ';
     int quit = 0;
-    Uint32 next_game_tick = SDL_GetTicks();  // Declaración de next_game_tick aquí
+    Uint32 next_game_tick = SDL_GetTicks();
 
     while (!quit && !(checkPerder(&game))) {
         // Manejar eventos de SDL
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                quit = 1; // Establecer la condición para salir al cerrar la ventana
+                quit = 1; // Salir al cerrar la ventana
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                    // Manejar tecla de movimiento
-                    case SDLK_UP:
-                        direccion = 'u';
+                    case SDLK_l:
+                        direccion = 'l'; // Tecla 'l' para izquierda
                         break;
-                    // Otros casos de teclas de movimiento según tu juego
+                    case SDLK_r:
+                        direccion = 'r'; // Tecla 'r' para derecha
+                        break;
+                    case SDLK_u:
+                        direccion = 'u'; // Tecla 'u' para arriba
+                        break;
+                    case SDLK_d:
+                        direccion = 'd'; // Tecla 'd' para abajo
+                        break;
                     case SDLK_q:
-                        quit = 1; // Presionar 'q' para salir del juego
+                        quit = 1; // Tecla 'q' para salir del juego
                         break;
                     default:
                         break;
@@ -79,15 +90,15 @@ int main() {
             SDL_RenderPresent(window.renderer);
         }
 
-        // Actualizar next_game_tick para controlar la tasa de fotogramas
+        // Controlar la tasa de fotogramas
         Uint32 now = SDL_GetTicks();
         Uint32 waitTime = next_game_tick > now ? next_game_tick - now : 0;
         SDL_Delay(waitTime);
-        next_game_tick = SDL_GetTicks() + TICK_INTERVAL;  // Actualización de next_game_tick
+        next_game_tick = SDL_GetTicks() + TICK_INTERVAL;
     }
 
     // Esperar antes de salir
-    SDL_Delay(1000); // Espera adicional antes de cerrar la ventana
+    SDL_Delay(1000);
 
     // Limpiar y salir
     freeTablero(&game);
@@ -95,3 +106,4 @@ int main() {
 
     return EXIT_SUCCESS;
 }
+
