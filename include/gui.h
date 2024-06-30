@@ -1,6 +1,11 @@
+// gui.h
 #ifndef GUI_H
-
 #define GUI_H
 
+#include "game-logic.h"
 
-#endif /* GUI_H */
+void initSDL();
+void renderizarTablero(Game *game);
+void manejarEventos(Game *game);
+
+#endif // GUI_H
