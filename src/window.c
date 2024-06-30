@@ -1,5 +1,9 @@
 #include "../include/window.h"
 #include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
+#include "../include/gui.h"
+#include "../include/game-logic.h"
+#include "../include/movement.h"
+
 
 // Función para inicializar SDL y SDL_ttf
 int initSDL(Window* window) {
