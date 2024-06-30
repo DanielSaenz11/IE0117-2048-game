@@ -1,5 +1,8 @@
 // game-logic
+#include "../include/window.h"
+#include "../include/gui.h"
 #include "../include/game-logic.h"
+#include "../include/movement.h"
 
 #include <stdio.h>
 #include <stdlib.h>
