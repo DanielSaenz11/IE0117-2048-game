@@ -1,15 +1,25 @@
-#ifndef GUI_H
-#define GUI_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
-#include <stdbool.h>  // Incluir para usar el tipo de dato bool y las constantes true/false
-#include "../include/window.h"  // Incluye window.h, no gui.h
 #include <SDL2/SDL.h>
-#include "../include/game-logic.h"  // Incluye game-logic.h para definición de Game
 
-// Declaraciones de funciones para la interfaz gráfica
-int initSDLAndWindow(Window* window);
-void renderizarTablero(Game* game, SDL_Renderer* renderer);
-void manejarEventos(Game* game);
+// Definir las dimensiones de la ventana
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
+// Estructura para manejar la ventana SDL
+typedef struct {
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+} Window;
+
+// Función para inicializar SDL y crear la ventana
+int initSDL(Window* window);
+
+// Función para crear la ventana de selección de tamaño del tablero
 int createBoardSizeWindow(Window* window, int* boardSize);
 
-#endif // GUI_H
+// Función para limpiar recursos de la ventana
+void cleanupWindow(Window* window);
+
+#endif /* WINDOW_H */
