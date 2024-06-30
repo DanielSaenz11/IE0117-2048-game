@@ -1,11 +1,12 @@
 #ifndef GUI_H
 #define GUI_H
-#include <SDL.h>
-#include <SDL_render.h>
 
+#include "window.h"
+#include "game-logic.h"
 
-#include "game-logic.h" // Incluye los encabezados necesarios
-
+int initSDLAndWindow(Window* window);
 void renderizarTablero(Game* game, SDL_Renderer* renderer);
+void manejarEventos(Game* game);
+int createBoardSizeWindow(Window* window, int* boardSize);
 
 #endif // GUI_H
