@@ -1,6 +1,17 @@
 #include "../include/window.h"
 #include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
 
+    int createBoardSizeWindow(Window* window, int* boardSize) {
+    SDL_SetRenderDrawColor(window->renderer, 255, 255, 255, 255); // Color de fondo blanco
+    SDL_RenderClear(window->renderer);
+
+    TTF_Font* font = TTF_OpenFont("path_to_your_font_file.ttf", TEXT_SIZE); // Cambiar por tu propia ruta y tamaño de fuente
+    if (font == NULL) {
+        printf("Error al cargar la fuente: %s\n", TTF_GetError());
+        return -1;
+    }
+
+
 
     SDL_Color textColor = {0, 0, 0, 255}; // Color negro para el texto
 
