@@ -4,6 +4,10 @@
 #include <SDL2/SDL.h>
 #include "game-logic.h"  // Asumiendo que aquí se encuentra la definición de Game
 
+extern TTF_Font* font; // Declaración de la fuente global
+
+int initFont(); // Función para inicializar la fuente
+
 // Definir las dimensiones de la ventana
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
