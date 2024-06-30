@@ -1,101 +1,36 @@
-#include "../include/game-logic.h"
-#include "../include/window.h"
-#include "../include/gui.h"
-#include <stdlib.h>
-#include <time.h>
-#include <SDL2/SDL.h>
+// main.c
 
-#define TICK_INTERVAL 100
+#include <stdio.h>
+#include "game-logic.h" // Incluir el archivo de encabezado para la lógica del juego
+#include "gui.h" // Incluir el archivo de encabezado para la interfaz gráfica
 
-int main() {
-    // Estructura para la ventana y renderer
-    Window window;
-
-    // Inicialización de SDL y creación de ventana para selección de tamaño
-    if (initSDL(&window) != 0) {
-        fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
-        return EXIT_FAILURE;
-    }
-
-    // Crear ventana para seleccionar tamaño del tablero
-    int tamanoTablero = 0;
-    if (createBoardSizeWindow(&window, &tamanoTablero) != 0) {
-        fprintf(stderr, "Error al seleccionar el tamaño del tablero.\n");
-        cleanupWindow(&window);
-        return EXIT_FAILURE;
-    }
-
-    // Inicialización del juego
-    srand(time(NULL));
+int main(int argc, char* argv[]) {
     Game game;
-    int game_running = 0;
+    int tamanoTablero = 4; // Ejemplo de tamaño de tablero, ajusta según sea necesario
 
-    game.tamanoTablero = tamanoTablero;
-    game_running = init_board(&game);
+    game.tamanoTablero = tamanoTablero; // Asignar el tamaño del tablero a la estructura Game
 
-    if (!game_running) {
-        cleanupWindow(&window);
-        return EXIT_FAILURE;
-    }
+    // Inicializar el tablero y otras inicializaciones necesarias
+    int game_running = init_board(&game);
 
     // Bucle principal del juego
-    SDL_Event event;
-    Uint32 next_game_tick = SDL_GetTicks();
-    char direccion = ' ';
-    int quit = 0;
-
-    while (!quit && !(checkPerder(&game))) {
-    // Manejar eventos de SDL
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            quit = 1; // Establecer la condición para salir
-        } else if (event.type == SDL_KEYDOWN) {
-            switch (event.key.keysym.sym) {
-                // Manejar otras teclas según tu lógica de juego
-                case SDLK_UP:
-                    direccion = 'u';
-                    break;
-                // Otros casos...
-                case SDLK_q:
-                    quit = 1;
-                    break;
-                default:
-                    break;
-            }
+    while (!game.quit) {
+        // Lógica de manejo de eventos, renderizado y actualización del juego
+        manejarEventos(&game); // Manejar eventos del juego
+        renderizarTablero(&game, window.renderer); // Renderizar el tablero en la ventana
+        // Otras funciones de lógica de juego como mover casillas, verificar perder, etc.
+        if (!game_over) {
+            moverCasillas(&game, direccion);
+            fusionarCasillas(&game, direccion);
+            moverCasillas(&game, direccion);
+        } else {
+            game.quit = true; // Ejemplo de condición para terminar el juego
         }
+        SDL_Delay(100); // Pequeña pausa para controlar la velocidad del juego
     }
 
-    if (direccion != ' ') {
-        // Realizar movimiento y actualizaciones del juego
-        moverCasillas(&game, direccion);
-        fusionarCasillas(&game, direccion);
-        moverCasillas(&game, direccion);
+    // Liberar recursos al salir del juego
+    freeTablero(&game);
 
-        // Reiniciar la dirección después de cada movimiento
-        direccion = ' ';
-
-        // Actualizar renderizado del tablero
-        SDL_SetRenderDrawColor(window.renderer, 255, 255, 255, 255);
-        SDL_RenderClear(window.renderer);
-        renderizarTablero(&game, window.renderer);
-        SDL_RenderPresent(window.renderer);
-    }
-
-    // Esperar para mantener una tasa de fotogramas estable
-    Uint32 now = SDL_GetTicks();
-    if (next_game_tick <= now) {
-        next_game_tick = now + TICK_INTERVAL;
-    } else {
-        SDL_Delay(next_game_tick - now);
-    }
-}
-
-// Esperar antes de salir
-SDL_Delay(1000); // Espera adicional antes de cerrar la ventana
-
-// Limpiar y salir
-freeTablero(&game);
-cleanupWindow(&window);
-
-return EXIT_SUCCESS;
+    return 0;
 }
