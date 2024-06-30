@@ -9,7 +9,6 @@ typedef struct {
 } Window;
 
 int initSDL(Window* window);
-int createBoardSizeWindow(Window* window, int* boardSize);
 void cleanupWindow(Window* window);
 
 #endif /* WINDOW_H */
