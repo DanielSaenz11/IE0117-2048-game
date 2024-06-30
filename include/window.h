@@ -8,6 +8,8 @@ typedef struct {
     SDL_Renderer* renderer;
 } Window;
 
+// Definir el tamaño del texto
+#define TEXT_SIZE 30
 int initSDL(Window* window);
 void cleanupWindow(Window* window);
 
