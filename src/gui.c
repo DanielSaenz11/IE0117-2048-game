@@ -1,11 +1,10 @@
 #include "../include/gui.h"
-#include "../include/window.h" // Incluir el archivo de cabecera de window.h
+#include "../include/window.h"
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <stdbool.h> // Incluir para usar el tipo de dato bool y la constante true
 
-// Declarar variables globales para el tamaño del tablero y la ventana
-int boardSize = 4;
-Window window;
+int boardSize = 0; // Variable global para el tamaño del tablero
+Window window; // Variable global para la ventana
 
 // Función para inicializar SDL, ventana y cargar recursos necesarios
 int initSDLAndWindow() {
@@ -18,34 +17,22 @@ int initSDLAndWindow() {
 }
 
 // Función para renderizar el juego en la ventana
-void renderizarTablero(Game* game, SDL_Renderer* renderer) {
-    // Implementar la lógica para renderizar el tablero según el estado del juego
-    // Utilizar SDL_Renderer* renderer para dibujar los elementos del juego
-    // Por ejemplo:
+void renderizarTablero(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
     SDL_RenderClear(renderer); // Limpiar el renderizador con el color de fondo
 
-    // Ejemplo: Renderizar un cuadrado simple
-    SDL_Rect rect;
-    rect.x = 100;
-    rect.y = 100;
-    rect.w = 50;
-    rect.h = 50;
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Color rojo para el cuadrado
-    SDL_RenderFillRect(renderer, &rect); // Dibujar el cuadrado en el renderizador
+    // Implementar aquí la lógica para renderizar el juego según el estado actual
 
-    // Ejemplo: Renderizar el tablero del juego (reemplazar con tu propia lógica de renderizado)
-    
     SDL_RenderPresent(renderer); // Mostrar el renderizado en pantalla
 }
 
 // Función para manejar eventos del juego
-void manejarEventos(Game* game) {
+void manejarEventos() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                game->quit = true;
+                boardSize = -1; // Salir del bucle de selección de tamaño del tablero
                 break;
             case SDL_KEYDOWN:
                 // Manejar teclas según sea necesario
@@ -56,30 +43,43 @@ void manejarEventos(Game* game) {
     }
 }
 
+// Función para crear y gestionar la ventana de selección del tamaño del tablero
+int createBoardSizeWindow() {
+    SDL_SetRenderDrawColor(window.renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
+    SDL_RenderClear(window.renderer); // Limpiar el renderizador con el color de fondo
+
+    // Implementar aquí la lógica para la ventana de selección del tamaño del tablero
+    // Por ejemplo, renderizar texto para instrucciones y capturar la entrada del usuario
+
+    SDL_RenderPresent(window.renderer); // Mostrar el renderizado en pantalla
+
+    return 0; // Retornar el tamaño del tablero seleccionado por el usuario
+}
+
 // Función principal del juego
 int main(int argc, char* argv[]) {
-    Game game;
-    // Inicializar SDL y la ventana
     if (initSDLAndWindow() != 0) {
         printf("Error al inicializar SDL y la ventana.\n");
         return -1;
     }
 
-    // Bucle principal del juego
-    while (!game.quit) {
-        manejarEventos(&game); // Manejar eventos del juego
+    // Bucle de selección de tamaño del tablero
+    while (boardSize == 0) {
+        manejarEventos(); // Manejar eventos de la ventana
 
-        if (boardSize == 0) {
-            if (createBoardSizeWindow(&window, &boardSize) != 0) {
-                printf("Error al crear la ventana de selección del tamaño del tablero.\n");
-                break;
-            }
-        } else {
-            renderizarTablero(&game, window.renderer); // Renderizar el juego en la ventana
+        if (createBoardSizeWindow() != 0) {
+            printf("Error al crear la ventana de selección del tamaño del tablero.\n");
+            break;
         }
     }
 
-    // Limpiar recursos y salir
-    cleanupWindow(&window);
+    // Bucle principal del juego
+    while (boardSize > 0) {
+        manejarEventos(); // Manejar eventos del juego
+
+        renderizarTablero(window.renderer); // Renderizar el juego en la ventana
+    }
+
+    cleanupWindow(&window); // Limpiar recursos y salir
     return 0;
 }
