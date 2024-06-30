@@ -42,12 +42,6 @@ void manejarEventos(Game* game) {
 }
 
 
-// Función principal del juego
-int main(int argc, char* argv[]) {
-    Window window;
-    Game game;
-    game.quit = false; // Inicializar el campo `quit` de `Game`
-
     if (initSDLAndWindow(&window) != 0) {
         printf("Error al inicializar SDL y la ventana.\n");
         return -1;
