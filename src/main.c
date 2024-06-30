@@ -40,7 +40,6 @@ int main() {
 
     // Bucle principal del juego
     SDL_Event event;
-    Uint32 next_game_tick = SDL_GetTicks();
     char direccion = ' ';
     int quit = 0;
 
@@ -91,12 +90,7 @@ int main() {
         }
 
         // Esperar para mantener una tasa de fotogramas estable (opcional)
-        Uint32 now = SDL_GetTicks();
-        if (next_game_tick <= now) {
-            next_game_tick = now + TICK_INTERVAL;
-        } else {
-            SDL_Delay(next_game_tick - now);
-        }
+        SDL_Delay(TICK_INTERVAL);
     }
 
     // Limpiar y salir
