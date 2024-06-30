@@ -3,14 +3,12 @@
 #include <time.h>
 #include <SDL2/SDL.h>
 
-#define BOARD_SIZE_MIN 3
-#define BOARD_SIZE_MAX 5
+#define BOARD_SIZE 4
 #define CELL_SIZE 100
 
 typedef struct {
-    int **tablero; // Doble puntero para tener un array 2D
-    int puntuacion;
-    int tamanoTablero;
+    int **board;
+    int size;
 } Game;
 
 SDL_Window *window = NULL;
@@ -22,7 +20,7 @@ int initSDL() {
         return 0;
     }
 
-    window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, BOARD_SIZE_MIN * CELL_SIZE, BOARD_SIZE_MIN * CELL_SIZE, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, BOARD_SIZE * CELL_SIZE, BOARD_SIZE * CELL_SIZE, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         fprintf(stderr, "Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return 0;
@@ -49,40 +47,26 @@ void render_board(Game *game, SDL_Renderer *renderer) {
 
     int cell_size = CELL_SIZE;
 
-    for (int i = 0; i < game->tamanoTablero; i++) {
-        for (int j = 0; j < game->tamanoTablero; j++) {
+    for (int i = 0; i < game->size; i++) {
+        for (int j = 0; j < game->size; j++) {
             SDL_Rect cell;
             cell.x = j * cell_size;
             cell.y = i * cell_size;
             cell.w = cell_size - 5;
             cell.h = cell_size - 5;
 
-            SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+            if (game->board[i][j] == 0) {
+                SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+            } else {
+                // Aquí puedes ajustar los colores según los valores del tablero
+                SDL_SetRenderDrawColor(renderer, 100 + game->board[i][j] * 10, 100 + game->board[i][j] * 5, 100 + game->board[i][j] * 2, 255);
+            }
+
             SDL_RenderFillRect(renderer, &cell);
 
-            if (game->tablero[i][j] != 0) {
-                // Colorear la celda según el valor en el tablero
-                SDL_Color color;
-                color.r = 100 + game->tablero[i][j] * 10;
-                color.g = 100 + game->tablero[i][j] * 5;
-                color.b = 100 + game->tablero[i][j] * 2;
-                color.a = 255;
+            // Si deseas añadir texto en las celdas, puedes hacerlo aquí
+            // Puedes usar SDL_ttf o dibujar texto directamente sobre la ventana
 
-                SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-                SDL_RenderFillRect(renderer, &cell);
-
-                // Renderizar texto en la celda
-                char text[5];
-                snprintf(text, sizeof(text), "%d", game->tablero[i][j]);
-
-                SDL_Color textColor = { 0, 0, 0, 255 }; // Color del texto
-                SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, textColor); // Renderizar superficie de texto
-                SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface); // Crear textura de texto
-                SDL_Rect textRect = { cell.x + cell_size / 2 - textSurface->w / 2, cell.y + cell_size / 2 - textSurface->h / 2, textSurface->w, textSurface->h }; // Posicion del texto
-                SDL_RenderCopy(renderer, textTexture, NULL, &textRect); // Copiar el texto en el renderizador
-                SDL_FreeSurface(textSurface); // Liberar superficie de texto
-                SDL_DestroyTexture(textTexture); // Destruir textura de texto
-            }
         }
     }
 
@@ -92,50 +76,46 @@ void render_board(Game *game, SDL_Renderer *renderer) {
 int main() {
     srand(time(NULL));
 
-    Game game;
-    game.tamanoTablero = BOARD_SIZE_MIN;
-
     if (!initSDL()) {
         return 1;
     }
 
-    // Inicializar el tablero y agregar las primeras casillas aleatorias
-    init_board(&game);
-    addCasillaRandom(&game);
-    addCasillaRandom(&game);
+    Game game;
+    game.size = BOARD_SIZE;
+    game.board = (int **)malloc(game.size * sizeof(int *));
+    for (int i = 0; i < game.size; i++) {
+        game.board[i] = (int *)malloc(game.size * sizeof(int));
+        for (int j = 0; j < game.size; j++) {
+            game.board[i][j] = 0; // Inicializar el tablero con ceros
+        }
+    }
 
-    int quit = 0;
+    // Ejemplo: Agregar un número aleatorio al inicio del juego
+    int row = rand() % game.size;
+    int col = rand() % game.size;
+    game.board[row][col] = 2;
+
     SDL_Event e;
-    while (!quit && !checkPerder(&game)) {
+    int quit = 0;
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = 1;
-            } else if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
-                    case SDLK_UP:
-                        moverCasillas(&game, 'u');
-                        break;
-                    case SDLK_DOWN:
-                        moverCasillas(&game, 'd');
-                        break;
-                    case SDLK_LEFT:
-                        moverCasillas(&game, 'l');
-                        break;
-                    case SDLK_RIGHT:
-                        moverCasillas(&game, 'r');
-                        break;
-                }
-
-                addCasillaRandom(&game);
             }
+            // Aquí puedes manejar otros eventos como teclas para mover las celdas
         }
 
         render_board(&game, renderer);
-        SDL_Delay(100);
+        SDL_Delay(100); // Ajusta el retraso para controlar la velocidad de actualización
     }
 
     closeSDL();
-    freeTablero(&game);
+
+    // Liberar memoria utilizada por el tablero
+    for (int i = 0; i < game.size; i++) {
+        free(game.board[i]);
+    }
+    free(game.board);
 
     return 0;
 }
