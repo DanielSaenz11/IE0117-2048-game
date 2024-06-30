@@ -1,6 +1,14 @@
 #include "../include/window.h"
 #include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
 
+// Función para inicializar SDL y SDL_ttf
+int initSDL(Window* window) {
+    // Inicializar SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("Error al inicializar SDL: %s\n", SDL_GetError());
+        return -1;
+    }
+
     int createBoardSizeWindow(Window* window, int* boardSize) {
     SDL_SetRenderDrawColor(window->renderer, 255, 255, 255, 255); // Color de fondo blanco
     SDL_RenderClear(window->renderer);
