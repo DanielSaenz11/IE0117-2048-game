@@ -98,6 +98,9 @@ int main() {
             SDL_Delay(next_game_tick - now);
         }
     }
+    
+    // Esperar antes de salir (opcional)
+    SDL_Delay(1000); // Espera adicional antes de cerrar la ventana
 
     // Limpiar y salir
     freeTablero(&game);
