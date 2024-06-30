@@ -1,5 +1,6 @@
 #include "../include/window.h"
 #include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
+#include  <SDL2/SDL.h>
 
 // Función para inicializar SDL y SDL_ttf
 int initSDL(Window* window) {
