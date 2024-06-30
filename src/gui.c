@@ -3,10 +3,19 @@
 #include "../include/gui.h"
 #include "../include/game-logic.h"
 #include "../include/movement.h"
-#include <stdbool.h> // Asegúrate de incluir <stdbool.h> para usar el tipo de datos bool y la constante true
+#include <stdbool.h>
 
-// Variable global para el tamaño del tablero
-extern int boardSize;
+TTF_Font* font = NULL; // Inicialización de la variable global de la fuente
+
+// Función para inicializar la fuente
+int initFont() {
+    font = TTF_OpenFont("path_to_your_font.ttf", 28); // Reemplaza con la ruta a tu archivo de fuente y el tamaño deseado
+    if (font == NULL) {
+        printf("Error al cargar la fuente: %s\n", TTF_GetError());
+        return -1;
+    }
+    return 0;
+}
 
 // Función para inicializar SDL, ventana y cargar recursos necesarios
 int initSDLAndWindow(Window* window) {
@@ -14,7 +23,10 @@ int initSDLAndWindow(Window* window) {
         printf("Error al inicializar SDL y la ventana.\n");
         return -1;
     }
-
+    if (initFont() != 0) { // Llama a la función para inicializar la fuente
+        printf("Error al inicializar la fuente.\n");
+        return -1;
+    }
     return 0;
 }
 
@@ -23,6 +35,7 @@ void renderizarTablero(Game* game, SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Color de fondo blanco
     SDL_RenderClear(renderer); // Limpiar la pantalla
 
+    // Implementa aquí la lógica para renderizar el juego según el estado actual del juego en `game`
     // Calcula el tamaño de cada celda basado en el tamaño de la ventana y el tablero
     int cellSize = WINDOW_WIDTH / game->tamanoTablero;
 
@@ -120,5 +133,6 @@ int ejecutarJuego() {
 
     // Limpiar y salir
     cleanupWindow(&window);
+    TTF_CloseFont(font); // Cierra la fuente al finalizar el juego
     return 0;
 }
