@@ -25,7 +25,7 @@ void actualizarPuntuacion(Game* game, int puntuacion);
 void freeTablero(Game* game);
 
 // Declaraciones adicionales para las funciones en game-logic.c
-void moverCasillas(Game* game, char direccion);
+int moverCasillas(Game* game, char direccion);
 void fusionarCasillas(Game* game, char direccion);
 
 #endif /* GAME_LOGIC_H */
