@@ -1,7 +1,5 @@
-// main.c
-
 #include "../include/game-logic.h"
-#include "../include/movement.h"
+#include "../include/window.h"
 #include "../include/gui.h"
 #include <stdlib.h>
 #include <time.h>
@@ -10,9 +8,20 @@
 #define TICK_INTERVAL 100
 
 int main() {
-    // Inicialización de SDL y creación de ventana
-    if (initSDL() != 0) {
+    // Estructura para la ventana y renderer
+    Window window;
+
+    // Inicialización de SDL y creación de ventana para selección de tamaño
+    if (initSDL(&window) != 0) {
         fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
+        return EXIT_FAILURE;
+    }
+
+    // Crear ventana para seleccionar tamaño del tablero
+    int tamanoTablero = 0;
+    if (createBoardSizeWindow(&window, &tamanoTablero) != 0) {
+        fprintf(stderr, "Error al seleccionar el tamaño del tablero.\n");
+        cleanupWindow(&window);
         return EXIT_FAILURE;
     }
 
@@ -21,13 +30,11 @@ int main() {
     Game game;
     int game_running = 0;
 
-    game.tamanoTablero = checkSize();
+    game.tamanoTablero = tamanoTablero;
     game_running = init_board(&game);
 
     if (!game_running) {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(ventana);
-        SDL_Quit();
+        cleanupWindow(&window);
         return EXIT_FAILURE;
     }
 
@@ -75,12 +82,12 @@ int main() {
             direccion = ' ';
 
             // Actualizar renderizado del tablero
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Color de fondo blanco
-            SDL_RenderClear(renderer);
+            SDL_SetRenderDrawColor(window.renderer, 255, 255, 255, 255); // Color de fondo blanco
+            SDL_RenderClear(window.renderer);
 
-            renderizarTablero(&game);  // Llamar a la función para renderizar el tablero
+            renderizarTablero(&game, window.renderer);  // Renderizar el tablero usando GUI
 
-            SDL_RenderPresent(renderer);  // Mostrar el renderizado en pantalla
+            SDL_RenderPresent(window.renderer);  // Mostrar el renderizado en pantalla
         }
 
         // Esperar para mantener una tasa de fotogramas estable (opcional)
@@ -92,11 +99,9 @@ int main() {
         }
     }
 
-    // Liberar recursos y salir
+    // Limpiar y salir
     freeTablero(&game);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(ventana);
-    SDL_Quit();
+    cleanupWindow(&window);
 
     return EXIT_SUCCESS;
 }
