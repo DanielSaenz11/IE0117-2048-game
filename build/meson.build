@@ -9,9 +9,9 @@ sdl2 = dependency(sdl2)
 inc = include_directories(include)
 
 #Archivos fuente
-game_sources = files(src/game-logic.c, scr/movement.c)
-gui_sources = files(scr/gui.c)
-main_source = files(scr/main.c)
+game_sources = files(src/game-logic.c, src/movement.c)
+gui_sources = files(src/gui.c)
+main_source = files(src/main.c)
 
 #Se unen todos los archivos fuente en una sola linea 
 src = game_sources + gui_sources + main_source
