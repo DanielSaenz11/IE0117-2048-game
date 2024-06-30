@@ -1,9 +1,5 @@
 // gui.c
-
 #include "../include/gui.h"
-#include "../include/window.h"
-#include <SDL2/SDL.h>
-#include <stdbool.h> // Incluir para usar el tipo de dato bool y la constante true
 
 // Variable global para el tamaño del tablero
 int boardSize = 0;
