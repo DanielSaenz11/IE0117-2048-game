@@ -1,3 +1,4 @@
+// main.c
 #include "../include/game-logic.h"
 #include "../include/movement.h"
 #include "../include/gui.h"
