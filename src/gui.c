@@ -3,17 +3,24 @@
 #include <SDL2/SDL_ttf.h>
 
 void renderizarTablero(Game* game, SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
-    SDL_RenderClear(renderer); // Limpiar el renderizador con el color de fondo
+    // Limpiar el renderizador con un color de fondo blanco
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
 
-    // Ejemplo: Renderizar un cuadrado simple
+    // Ejemplo: Dibujar un cuadrado rojo en el centro de la ventana
     SDL_Rect rect;
-    rect.x = 100;
-    rect.y = 100;
-    rect.w = 50;
-    rect.h = 50;
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Color rojo para el cuadrado
-    SDL_RenderFillRect(renderer, &rect); // Dibujar el cuadrado en el renderizador
+    rect.x = 200;
+    rect.y = 200;
+    rect.w = 100;
+    rect.h = 100;
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);  // Rojo
+    SDL_RenderFillRect(renderer, &rect);
+
+    // Mostrar el renderizado en pantalla
+    SDL_RenderPresent(renderer);
+}
+
 
     // Ejemplo: Renderizar texto usando SDL_ttf
     TTF_Font* font = TTF_OpenFont("path_to_your_font_file.ttf", 24); // Cargar una fuente TTF (reemplaza con tu propia ruta)
