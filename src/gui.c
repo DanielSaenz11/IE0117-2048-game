@@ -41,18 +41,6 @@ void manejarEventos(Game* game) {
     }
 }
 
-// Función para crear y gestionar la ventana de selección del tamaño del tablero
-int createBoardSizeWindow(Window* window, int* boardSize) {
-    SDL_SetRenderDrawColor(window->renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
-    SDL_RenderClear(window->renderer); // Limpiar el renderizador con el color de fondo
-
-    // Implementar aquí la lógica para la ventana de selección del tamaño del tablero
-    // Por ejemplo, renderizar texto para instrucciones y capturar la entrada del usuario
-
-    SDL_RenderPresent(window->renderer); // Mostrar el renderizado en pantalla
-
-    return 0; // Retornar el tamaño del tablero seleccionado por el usuario
-}
 
 // Función principal del juego
 int main(int argc, char* argv[]) {
