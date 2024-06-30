@@ -1,6 +1,10 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+// En window.h o en un archivo de cabecera adecuado
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 #include <SDL2/SDL.h>
 
 typedef struct {
