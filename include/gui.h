@@ -1,15 +1,10 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef GUI_H
+#define GUI_H
 
 #include <SDL2/SDL.h>
+#include "../include/game-logic.h" // Incluir el archivo de encabezado de lógica de juego si es necesario
 
-typedef struct {
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-} Window;
+void renderizarTablero(Game* game, SDL_Renderer* renderer);
+// Otros prototipos de funciones para la interfaz gráfica si es necesario
 
-int initSDL(Window* window);
-int createBoardSizeWindow(Window* window, int* boardSize);
-void cleanupWindow(Window* window);
-
-#endif // WINDOW_H
+#endif // GUI_H
