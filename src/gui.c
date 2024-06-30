@@ -1,64 +1,39 @@
+// gui.c
 #include "gui.h"
-#include "game-logic.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <SDL2/SDL.h>
 
-#define SCREEN_WIDTH 400
-#define SCREEN_HEIGHT 400
-#define TILE_SIZE 80
-
-SDL_Window *window = NULL;
-SDL_Renderer *renderer = NULL;
-
-int initSDL() {
-    // Inicializar SDL
+void initSDL() {
+    // Inicialización de SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
-        return 0;
+        exit(EXIT_FAILURE);
     }
 
-    // Crear ventana
-    window = SDL_CreateWindow("2048 Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == NULL) {
-        fprintf(stderr, "Error al crear la ventana: %s\n", SDL_GetError());
+    // Creación de la ventana SDL
+    ventana = SDL_CreateWindow("2048 Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                               SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if (ventana == NULL) {
+        fprintf(stderr, "Error al crear la ventana SDL: %s\n", SDL_GetError());
         SDL_Quit();
-        return 0;
+        exit(EXIT_FAILURE);
     }
 
-    // Crear renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    // Creación del renderer SDL
+    renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == NULL) {
-        fprintf(stderr, "Error al crear el renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window);
+        fprintf(stderr, "Error al crear el renderer SDL: %s\n", SDL_GetError());
+        SDL_DestroyWindow(ventana);
         SDL_Quit();
-        return 0;
+        exit(EXIT_FAILURE);
     }
-
-    return 1;
 }
 
 void renderizarTablero(Game *game) {
-    // Dibujar el fondo
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-
-    // Dibujar las celdas del tablero
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    for (int i = 0; i < game->tamanoTablero; i++) {
-        for (int j = 0; j < game->tamanoTablero; j++) {
-            SDL_Rect rect = { j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE };
-            SDL_RenderDrawRect(renderer, &rect);
-        }
-    }
-
-    // Presentar renderizado
-    SDL_RenderPresent(renderer);
+    // Implementación para renderizar el tablero usando SDL
+    // Aquí deberías dibujar el estado actual del juego en la ventana SDL usando renderer
 }
 
-void closeSDL() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+void manejarEventos(Game *game) {
+    // Implementación para manejar eventos de SDL
+    // Aquí deberías capturar eventos del teclado u otros eventos relevantes para el juego
 }
