@@ -1,6 +1,6 @@
 #include "../include/window.h"
 #include <SDL2/SDL_ttf.h>  // Incluir la cabecera de SDL_ttf
-#include  <SDL2/SDL.h>
+#include <SDL2/SDL.h>
 
 // Función para inicializar SDL y SDL_ttf
 int initSDL(Window* window) {
@@ -10,7 +10,37 @@ int initSDL(Window* window) {
         return -1;
     }
 
-    int createBoardSizeWindow(Window* window, int* boardSize) {
+    // Crear ventana
+    window->window = SDL_CreateWindow("2048 Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (window->window == NULL) {
+        printf("Error al crear la ventana: %s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+
+    // Crear renderer
+    window->renderer = SDL_CreateRenderer(window->window, -1, SDL_RENDERER_ACCELERATED);
+    if (window->renderer == NULL) {
+        printf("Error al crear el renderer: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window->window);
+        SDL_Quit();
+        return -1;
+    }
+
+    // Inicializar SDL_ttf
+    if (TTF_Init() == -1) {
+        printf("Error al inicializar SDL_ttf: %s\n", TTF_GetError());
+        SDL_DestroyRenderer(window->renderer);
+        SDL_DestroyWindow(window->window);
+        SDL_Quit();
+        return -1;
+    }
+
+    return 0;
+}
+
+// Función para crear la ventana de selección de tamaño del tablero
+int createBoardSizeWindow(Window* window, int* boardSize) {
     SDL_SetRenderDrawColor(window->renderer, 255, 255, 255, 255); // Color de fondo blanco
     SDL_RenderClear(window->renderer);
 
@@ -19,8 +49,6 @@ int initSDL(Window* window) {
         printf("Error al cargar la fuente: %s\n", TTF_GetError());
         return -1;
     }
-
-
 
     SDL_Color textColor = {0, 0, 0, 255}; // Color negro para el texto
 
@@ -73,9 +101,6 @@ int initSDL(Window* window) {
     return 0;
 }
 
+// Función para limpiar recursos de la ventana
 void cleanupWindow(Window* window) {
-    SDL_DestroyRenderer(window->renderer);
-    SDL_DestroyWindow(window->window);
-    TTF_Quit();
-    SDL_Quit();
-}
+    SDL_DestroyRenderer(
