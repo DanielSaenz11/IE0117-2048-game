@@ -1,18 +1,15 @@
-// gui.h
+#ifndef WINDOW_H
+#define WINDOW_H
 
-#ifndef GUI_H
-#define GUI_H
-
-#include "game-logic.h"
 #include <SDL2/SDL.h>
 
-// Declaración de variables globales como externas
-extern SDL_Window *ventana;
-extern SDL_Renderer *renderer;
+typedef struct {
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+} Window;
 
-// Declaración de funciones para la interfaz gráfica
-void initSDL();
-void renderizarTablero(Game *game);
-void manejarEventos(Game *game);
+int initSDL(Window* window);
+int createBoardSizeWindow(Window* window, int* boardSize);
+void cleanupWindow(Window* window);
 
-#endif // GUI_H
+#endif // WINDOW_H
