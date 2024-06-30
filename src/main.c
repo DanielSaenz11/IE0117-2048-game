@@ -40,6 +40,7 @@ int main() {
     SDL_Event event;
     char direccion = ' ';
     int quit = 0;
+    Uint32 next_game_tick = SDL_GetTicks();  // Declaración de next_game_tick aquí
 
     while (!quit && !(checkPerder(&game))) {
         // Manejar eventos de SDL
@@ -78,10 +79,11 @@ int main() {
             SDL_RenderPresent(window.renderer);
         }
 
-        // Esperar para mantener una tasa de fotogramas estable
+        // Actualizar next_game_tick para controlar la tasa de fotogramas
         Uint32 now = SDL_GetTicks();
         Uint32 waitTime = next_game_tick > now ? next_game_tick - now : 0;
         SDL_Delay(waitTime);
+        next_game_tick = SDL_GetTicks() + TICK_INTERVAL;  // Actualización de next_game_tick
     }
 
     // Esperar antes de salir
