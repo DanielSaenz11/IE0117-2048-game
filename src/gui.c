@@ -1,3 +1,5 @@
+// gui.c
+
 #include "../include/gui.h"
 #include "../include/window.h"
 #include <SDL2/SDL.h>
@@ -60,6 +62,7 @@ int createBoardSizeWindow(Window* window, int* boardSize) {
 int main(int argc, char* argv[]) {
     Window window;
     Game game;
+    game.quit = false; // Inicializar el campo `quit` de `Game`
 
     if (initSDLAndWindow(&window) != 0) {
         printf("Error al inicializar SDL y la ventana.\n");
