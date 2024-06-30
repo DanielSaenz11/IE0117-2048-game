@@ -1,9 +1,7 @@
-#include "../include/game-logic.h"
 #include "../include/window.h"
 #include "../include/gui.h"
-#include <stdlib.h>
-#include <time.h>
-#include <SDL2/SDL.h>
+#include "../include/game-logic.h"
+#include "../include/movement.h"
 
 #define TICK_INTERVAL 100
 
