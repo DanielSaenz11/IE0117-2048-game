@@ -3,6 +3,7 @@
 #include "gui.h"
 #include "game-logic.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h> // Incluir la biblioteca SDL_ttf para manejar fuentes
 
 // Tamaño de cada casilla del juego
 #define TILE_SIZE 100
@@ -46,7 +47,12 @@ void renderizarTablero(Game *game) {
                 snprintf(texto, sizeof(texto), "%d", valor);
 
                 // Crear una superficie con el texto (requiere SDL_ttf)
-                TTF_Font *font = NULL; // Asegúrate de inicializar este con tu fuente
+                TTF_Font *font = TTF_OpenFont("ruta/a/tu/fuente.ttf", 24); // Ajusta la ruta y tamaño de la fuente
+                if (font == NULL) {
+                    fprintf(stderr, "Error al cargar la fuente: %s\n", TTF_GetError());
+                    return; // Manejar el error adecuadamente según tu aplicación
+                }
+
                 surface = TTF_RenderText_Solid(font, texto, textColor);
 
                 // Crear una textura a partir de la superficie
@@ -59,6 +65,9 @@ void renderizarTablero(Game *game) {
                 // Liberar la superficie y la textura
                 SDL_FreeSurface(surface);
                 SDL_DestroyTexture(texture);
+
+                // Cerrar la fuente
+                TTF_CloseFont(font);
             }
         }
     }
