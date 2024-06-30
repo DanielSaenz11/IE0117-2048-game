@@ -45,66 +45,57 @@ int main() {
     int quit = 0;
 
     while (!quit && !(checkPerder(&game))) {
-        // Manejar eventos de SDL
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                quit = 1;
-            } else if (event.type == SDL_KEYDOWN) {
-                switch (event.key.keysym.sym) {
-                    case SDLK_UP:
-                        direccion = 'u';
-                        break;
-                    case SDLK_DOWN:
-                        direccion = 'd';
-                        break;
-                    case SDLK_LEFT:
-                        direccion = 'l';
-                        break;
-                    case SDLK_RIGHT:
-                        direccion = 'r';
-                        break;
-                    case SDLK_q:
-                        quit = 1;
-                        break;
-                    default:
-                        break;
-                }
+    // Manejar eventos de SDL
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            quit = 1; // Establecer la condición para salir
+        } else if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                // Manejar otras teclas según tu lógica de juego
+                case SDLK_UP:
+                    direccion = 'u';
+                    break;
+                // Otros casos...
+                case SDLK_q:
+                    quit = 1;
+                    break;
+                default:
+                    break;
             }
         }
-
-        if (direccion != ' ') {
-            // Realizar movimiento y actualizaciones del juego
-            moverCasillas(&game, direccion);
-            fusionarCasillas(&game, direccion);
-            moverCasillas(&game, direccion);
-
-            // Reiniciar la dirección después de cada movimiento
-            direccion = ' ';
-
-            // Actualizar renderizado del tablero
-            SDL_SetRenderDrawColor(window.renderer, 255, 255, 255, 255); // Color de fondo blanco
-            SDL_RenderClear(window.renderer);
-
-            renderizarTablero(&game, window.renderer);  // Renderizar el tablero usando GUI
-
-            SDL_RenderPresent(window.renderer);  // Mostrar el renderizado en pantalla
-        }
-
-        // Esperar para mantener una tasa de fotogramas estable (opcional)
-        Uint32 now = SDL_GetTicks();
-        if (next_game_tick <= now) {
-            next_game_tick = now + TICK_INTERVAL;
-        } else {
-            SDL_Delay(next_game_tick - now);
-        }
     }
-    
-    // Esperar antes de salir (opcional)
-    SDL_Delay(1000); // Espera adicional antes de cerrar la ventana
 
-    // Limpiar y salir
-    freeTablero(&game);
-    cleanupWindow(&window);
+    if (direccion != ' ') {
+        // Realizar movimiento y actualizaciones del juego
+        moverCasillas(&game, direccion);
+        fusionarCasillas(&game, direccion);
+        moverCasillas(&game, direccion);
 
-    return EXIT_SUCCESS;
+        // Reiniciar la dirección después de cada movimiento
+        direccion = ' ';
+
+        // Actualizar renderizado del tablero
+        SDL_SetRenderDrawColor(window.renderer, 255, 255, 255, 255);
+        SDL_RenderClear(window.renderer);
+        renderizarTablero(&game, window.renderer);
+        SDL_RenderPresent(window.renderer);
+    }
+
+    // Esperar para mantener una tasa de fotogramas estable
+    Uint32 now = SDL_GetTicks();
+    if (next_game_tick <= now) {
+        next_game_tick = now + TICK_INTERVAL;
+    } else {
+        SDL_Delay(next_game_tick - now);
+    }
+}
+
+// Esperar antes de salir
+SDL_Delay(1000); // Espera adicional antes de cerrar la ventana
+
+// Limpiar y salir
+freeTablero(&game);
+cleanupWindow(&window);
+
+return EXIT_SUCCESS;
 }
