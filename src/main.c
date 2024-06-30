@@ -1,8 +1,10 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 #include "../include/window.h"
 #include "../include/gui.h"
 #include "../include/game-logic.h"
 #include "../include/movement.h"
-
 #define TICK_INTERVAL 100
 
 int main() {
