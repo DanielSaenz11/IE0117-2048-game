@@ -1,33 +1,10 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef GUI_H
+#define GUI_H
 
 #include <SDL2/SDL.h>
-#include "game-logic.h"  // Asumiendo que aquí se encuentra la definición de Game
+#include "game.h"  // Incluye el archivo donde está definida la estructura Game
 
-extern TTF_Font* font; // Declaración de la fuente global
+// Función para renderizar el tablero
+void render_board(Game *game, SDL_Renderer *renderer);
 
-int initFont(); // Función para inicializar la fuente
-
-// Definir las dimensiones de la ventana
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-
-// Estructura para manejar la ventana SDL
-typedef struct {
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-} Window;
-
-// Función para inicializar SDL y crear la ventana
-int initSDL(Window* window);
-
-// Función para crear la ventana de selección de tamaño del tablero
-int createBoardSizeWindow(Window* window, int* boardSize);
-
-// Función para limpiar recursos de la ventana
-void cleanupWindow(Window* window);
-
-void renderizarTablero(Game* game, SDL_Renderer* renderer);
-void manejarEventos(Game* game);
-
-#endif /* WINDOW_H */
+#endif /* GUI_H */
