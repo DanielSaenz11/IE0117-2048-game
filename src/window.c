@@ -3,7 +3,11 @@
 #include "../include/gui.h"
 #include "../include/game-logic.h"
 #include "../include/movement.h"
+#include <stdio.h>
+#include <string.h>
 
+// Tamaño de texto para la fuente TTF
+#define TEXT_SIZE 28
 
 // Función para inicializar SDL y SDL_ttf
 int initSDL(Window* window) {
