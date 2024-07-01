@@ -34,53 +34,57 @@ int initSDLAndWindow(Window* window) {
     return 0;
 }
 
-// Función para renderizar el juego en la ventana
-void renderizarTablero(Game* game, SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Color de fondo blanco
-    SDL_RenderClear(renderer); // Limpiar la pantalla
+#include "gui.h"  // Incluir las cabeceras necesarias según la estructura de tu proyecto
+#include <SDL2/SDL_ttf.h>
 
-    // Calcula el tamaño de cada celda basado en el tamaño de la ventana y el tablero
+// Función para renderizar el tablero del juego en la ventana
+void renderizarTablero(Game* game, SDL_Renderer* renderer) {
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
+    SDL_RenderClear(renderer); // Limpiar pantalla
+
+    // Calcular tamaño de cada celda
     int cellSize = WINDOW_WIDTH / game->tamanoTablero;
 
-    // Itera sobre el tablero y dibuja cada celda
+    // Iterar sobre el tablero y dibujar cada celda
     for (int i = 0; i < game->tamanoTablero; ++i) {
         for (int j = 0; j < game->tamanoTablero; ++j) {
-            // Calcula las coordenadas de la celda en la ventana
+            // Calcular coordenadas de la celda en la ventana
             SDL_Rect cellRect;
             cellRect.x = j * cellSize;
             cellRect.y = i * cellSize;
             cellRect.w = cellSize;
             cellRect.h = cellSize;
 
-            // Dibuja el fondo de la celda
+            // Dibujar el fondo de la celda
             SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255); // Color de fondo de la celda
             SDL_RenderFillRect(renderer, &cellRect);
 
-            // Dibuja el contenido de la celda (números u otros elementos del juego)
+            // Dibujar el contenido de la celda (números u otros elementos del juego)
             if (game->tablero[i][j] != 0) {
-                // Convierte el número a cadena
+                // Convertir el número a cadena de texto
                 char cellText[5];
                 snprintf(cellText, sizeof(cellText), "%d", game->tablero[i][j]);
 
-                // Crea una superficie de texto
-                SDL_Color textColor = { 0, 0, 0, 255 }; // Color del texto (negro)
+                // Crear superficie de texto
+                SDL_Color textColor = {0, 0, 0, 255}; // Color negro para el texto
+                TTF_Font* font = TTF_OpenFont("path_to_your_font.ttf", TEXT_SIZE); // Cambiar por tu ruta y tamaño de fuente
                 SDL_Surface* textSurface = TTF_RenderText_Solid(font, cellText, textColor);
                 if (textSurface != NULL) {
-                    // Crea una textura desde la superficie
+                    // Crear textura desde la superficie
                     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                     if (textTexture != NULL) {
-                        // Dibuja la textura en la celda
+                        // Dibujar la textura en la celda
                         SDL_RenderCopy(renderer, textTexture, NULL, &cellRect);
-                        SDL_DestroyTexture(textTexture); // Libera la textura después de usarla
+                        SDL_DestroyTexture(textTexture); // Liberar textura después de usarla
                     }
-                    SDL_FreeSurface(textSurface); // Libera la superficie después de usarla
+                    SDL_FreeSurface(textSurface); // Liberar superficie después de usarla
                 }
+                TTF_CloseFont(font); // Cerrar la fuente TTF
             }
         }
     }
 
-    // Actualiza la ventana con los cambios realizados
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer); // Actualizar ventana con los cambios realizados
 }
 
 // Resto del código de gui.c...
