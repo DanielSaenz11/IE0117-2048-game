@@ -7,7 +7,7 @@
 #include <string.h>
 
 // Tamaño de texto para la fuente TTF
-#define TEXT_SIZE 28
+#define TEXT_SIZE 30
 
 // Función para inicializar SDL y SDL_ttf
 int initSDL(Window* window) {
