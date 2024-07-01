@@ -38,6 +38,7 @@ int initSDLAndWindow(Window* window) {
 void renderizarTablero(Game* game, SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 
     // Ejemplo: Dibujar un texto estático en la ventana
     TTF_Font* font = TTF_OpenFont("path/to/your/font.ttf", 24); // Asegúrate de tener una fuente disponible
