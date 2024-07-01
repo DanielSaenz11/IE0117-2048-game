@@ -1,154 +1,101 @@
-#include "../include/window.h"
-#include "../include/gui.h"
-#include "../include/game-logic.h"
-#include "../include/movement.h"
-#include <stdbool.h>
-#include <SDL2/SDL_ttf.h> // Asegúrate de incluir SDL_ttf.h para manejar texto
+// Funcion para el render
 
-// Variable global para el tamaño del tablero
-extern int boardSize;
+void render_board(Game *game, SDL_Renderer *renderer) {
+    int cell_size = 100;
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
 
-// Variable global para la fuente TTF
-TTF_Font* font = NULL;
+    for (int i = 0; i < game->size; i++) {
+        for (int j = 0; j < game->size; j++) {
+            SDL_Rect cell;
+            cell.x = j * cell_size;
+            cell.y = i * cell_size;
+            cell.w = cell_size - 5;
+            cell.h = cell_size - 5;
 
-// Función para inicializar SDL, ventana y cargar recursos necesarios
-int initSDLAndWindow(Window* window) {
-    if (initSDL(window) != 0) {
-        printf("Error al inicializar SDL y la ventana.\n");
-        return -1;
-    }
+            if (game->board[i][j] == 0) {
+                SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+            } else {
+                SDL_SetRenderDrawColor(renderer, 100 + game->board[i][j] * 10, 100 + game->board[i][j] * 5, 100 + game->board[i][j] * 2, 255);
+            }
+            SDL_RenderFillRect(renderer, &cell);
 
-    // Inicializar SDL_ttf
-    if (TTF_Init() == -1) {
-        printf("Error al inicializar SDL_ttf: %s\n", TTF_GetError());
-        return -1;
-    }
-
-    // Cargar la fuente TTF
-    font = TTF_OpenFont("path/to/font.ttf", 24); // Asegúrate de tener una fuente en el directorio especificado
-    if (!font) {
-        printf("Error al cargar la fuente: %s\n", TTF_GetError());
-        return -1;
-    }
-
-    return 0;
-}
-
-// Incluir los encabezados necesarios y definir las variables globales
-#include "../include/gui.h"
-#include "../include/game-logic.h"
-#include <SDL2/SDL.h>
-
-// Función para renderizar el tablero en la ventana
-void renderizarTablero(Game* game, SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Establecer color de fondo blanco
-    SDL_RenderClear(renderer); // Limpiar el renderer con el color de fondo
-
-    // Calcular el tamaño de cada celda basado en el tamaño de la ventana y el tablero
-    int cellSize = WINDOW_WIDTH / game->tamanoTablero;
-
-    // Iterar sobre el tablero y dibujar cada celda
-    for (int i = 0; i < game->tamanoTablero; ++i) {
-        for (int j = 0; j < game->tamanoTablero; ++j) {
-            // Calcular las coordenadas de la celda en la ventana
-            SDL_Rect cellRect;
-            cellRect.x = j * cellSize;
-            cellRect.y = i * cellSize;
-            cellRect.w = cellSize;
-            cellRect.h = cellSize;
-
-            // Dibujar el fondo de la celda (aquí puedes ajustar según tu diseño)
-            SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255); // Color de fondo de la celda
-            SDL_RenderFillRect(renderer, &cellRect);
-
-            // Dibujar el contenido de la celda (números u otros elementos del juego)
-            if (game->tablero[i][j] != 0) {
-                // Por ejemplo, dibujar números dentro de las celdas
-                SDL_Color textColor = { 0, 0, 0, 255 }; // Color del texto (negro)
-                char cellText[5]; // Para almacenar el texto de la celda
-                snprintf(cellText, sizeof(cellText), "%d", game->tablero[i][j]); // Convertir el número a cadena
-
-                // Crear una superficie de texto
-                SDL_Surface* textSurface = TTF_RenderText_Solid(font, cellText, textColor);
-                if (textSurface != NULL) {
-                    // Crear una textura desde la superficie
-                    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-                    if (textTexture != NULL) {
-                        // Centrar el texto en la celda
-                        int textW = 0, textH = 0;
-                        SDL_QueryTexture(textTexture, NULL, NULL, &textW, &textH);
-                        SDL_Rect textRect = {
-                            cellRect.x + (cellRect.w - textW) / 2,
-                            cellRect.y + (cellRect.h - textH) / 2,
-                            textW,
-                            textH
-                        };
-
-                        // Dibujar la textura en la celda
-                        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-                        SDL_DestroyTexture(textTexture); // Liberar la textura después de usarla
-                    }
-                    SDL_FreeSurface(textSurface); // Liberar la superficie después de usarla
-                }
+            if (game->board[i][j] != 0) {
+                char text[5];
+                sprintf(text, "%d", game->board[i][j]);
+                // Aquí puedes añadir código para renderizar texto usando SDL_ttf o alguna otra biblioteca
             }
         }
     }
 
-    // Actualizar la ventana con los cambios realizados
     SDL_RenderPresent(renderer);
 }
 
-// Función para manejar eventos del juego
-void manejarEventos(Game* game) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                game->quit = true;
-                break;
-            case SDL_KEYDOWN:
-                // Manejar teclas según sea necesario
-                break;
-            default:
-                break;
-        }
-    }
-}
+// Main del programa
 
-// Función principal para coordinar la ejecución del juego
-int ejecutarJuego() {
-    Window window;
+int main() {
+    srand(time(NULL));
+
     Game game;
+    printf("Enter board size: ");
+    scanf("%d", &game.size);
 
-    if (initSDLAndWindow(&window) != 0) {
-        printf("Error al inicializar SDL y la ventana.\n");
-        return -1;
-    }
-
-    // Bucle de selección de tamaño del tablero
-    while (boardSize == 0) {
-        manejarEventos(&game);
-
-        if (createBoardSizeWindow(&window, &boardSize) != 0) {
-            printf("Error al crear la ventana de selección del tamaño del tablero.\n");
-            break;
-        }
-    }
-
-    // Inicializar el juego
-    game.tamanoTablero = boardSize;
-    game.quit = false;
-    game.puntuacion = 0;
     init_board(&game);
+    add_random_tile(&game);
+    add_random_tile(&game);
 
-    // Bucle principal del juego
-    while (!game.quit) {
-        manejarEventos(&game);
-        renderizarTablero(&game, window.renderer);
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return 1;
     }
 
-    cleanupWindow(&window);
-    TTF_CloseFont(font);
-    TTF_Quit();
+    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.size * 100, game.size * 100, SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    int quit = 0;
+    SDL_Event e;
+    while (!quit && !check_game_over(&game)) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = 1;
+            } else if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_UP:
+                        move_tiles(&game, 'w');
+                        add_random_tile(&game);
+                        break;
+                    case SDLK_DOWN:
+                        move_tiles(&game, 's');
+                        add_random_tile(&game);
+                        break;
+                    case SDLK_LEFT:
+                        move_tiles(&game, 'a');
+                        add_random_tile(&game);
+                        break;
+                    case SDLK_RIGHT:
+                        move_tiles(&game, 'd');
+                        add_random_tile(&game);
+                        break;
+                }
+            }
+        }
+        render_board(&game, renderer);
+        SDL_Delay(100);
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    free_board(&game);
     return 0;
 }
