@@ -7,7 +7,7 @@
 #include "../include/movement.h"
 #define TICK_INTERVAL 100
 
-int boardsize = 0;
+int boardSize = 0;
 // Declaración de la función renderizarTablero
 void renderizarTablero(Game* game, SDL_Renderer* renderer);
 
