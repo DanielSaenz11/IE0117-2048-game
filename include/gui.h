@@ -2,5 +2,10 @@
 #define GUI_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h> // Ejemplo de inclusión adicional
+
+// Declaración de funciones específicas de la GUI
+void render_board(Game *game, SDL_Renderer *renderer);
 
 #endif /* GUI_H */
+
