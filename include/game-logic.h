@@ -15,7 +15,7 @@ int init_board(Game* game);
 void printTablero(Game* game);
 
 void addCasillaRandom(Game* game);
-
+int checkPerder(Game* game);
 void freeTablero(Game* game);
 
 #endif /* GAME_LOGIC_H */ 
