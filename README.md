@@ -102,16 +102,16 @@
 4. **Input del usuario**
     - Flechas del teclado
 
-## Bibliotecas
+## Bibliotecas requeridas
 
-### Bibliotecas a utilizar: SDL2
+### SDL2
 La siguiente imagen es con fines ilustrativos de la forma en que se va observar el juego al terminar su implementación.
 
   <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
     <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
   </a>
 
-### Bibliotecas a utilizar
+### Otras bibliotecas
 
 1. `time.h`
     - Tiempo transcurrido y posición de nuevas casillas
@@ -120,23 +120,33 @@ La siguiente imagen es con fines ilustrativos de la forma en que se va observar 
     - Memoria dinámica para el manejo del arreglo de números variable
 
 
-### Installation
+## Instalación de las biblioteca SDL2
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+
+Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones
+
+ ```sh
+   sudo apt-get install libsdl2-dev 
+```
+
+Ahora se ejecuta el siguiente comando para instalar la biblioteca `SDL2`
+
+ ```sh
+   sudo apt-get install libsdl2-dev
+```
+
+Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la Instalación  podemos utilizar el siguiente comando:
+
+```sh
+   ls /usr/include/SDL2/SDL.h
+```
+Este es el archivo de encabezado de la biblioteca, si existe en el sistema se muestra que la biblioteca fue instalada correctamente. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Ejecucuión de Meson
+
+
 
 
 
