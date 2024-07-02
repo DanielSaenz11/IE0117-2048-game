@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdio.h>
 #include "gui.h" 
+#include "game-logic.h"
 
 // Funcion para el render
 
