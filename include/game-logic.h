@@ -10,14 +10,19 @@ typedef struct Game {
 
 int checkSize();
 
+char checkTecla();
+
 int init_board(Game* game);
 
-void printTablero(Game* game);
-void actualizarPuntuacion(Game* game, int puntuacion);
+void printTablero(Game* game); // Terminal debugging
 
 void addCasillaRandom(Game* game);
+
 int checkPerder(Game* game);
+
+void actualizarPuntuacion(Game* game, int puntuacion);
+
 void freeTablero(Game* game);
 
-#endif /* GAME_LOGIC_H */ 
+#endif /* GAME_LOGIC_H */
 
