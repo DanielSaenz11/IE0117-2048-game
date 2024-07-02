@@ -4,10 +4,6 @@
 #include "../include/movement.h"
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-
 
 /*
  * checkSize() verifica el que el input del usuario sea un entero
