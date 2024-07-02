@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h> // Ejemplo de inclusión adicional
+#include "game-logic.h"
 
 // Declaración de funciones específicas de la GUI
 void render_board(Game *game, SDL_Renderer *renderer);
