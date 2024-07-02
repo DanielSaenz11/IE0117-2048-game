@@ -1,3 +1,8 @@
+#include <SDL2/SDL.h>
+#include <time.h>
+#include <stdio.h>
+#include "gui.h" 
+
 // Funcion para el render
 
 void render_board(Game *game, SDL_Renderer *renderer) {
