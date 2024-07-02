@@ -13,6 +13,7 @@ int checkSize();
 int init_board(Game* game);
 
 void printTablero(Game* game);
+void actualizarPuntuacion(Game* game, int puntuacion);
 
 void addCasillaRandom(Game* game);
 int checkPerder(Game* game);
