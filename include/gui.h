@@ -8,7 +8,6 @@
 // Declaración de funciones específicas de la GUI
 void render_board(Game *game, SDL_Renderer *renderer);
 
-void show_board_size_selection(SDL_Renderer *renderer, int *selected_size) 
 
 #endif /* GUI_H */
 
