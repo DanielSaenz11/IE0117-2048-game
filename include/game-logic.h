@@ -12,8 +12,6 @@ int checkSize();
 
 char checkTecla();
 
-char checkTecla();
-
 int init_board(Game* game);
 
 void printTablero(Game* game); // Terminal debugging
