@@ -18,9 +18,7 @@ int main() {
         printf("Failed to initialize the board.\n");
         return 1;
     }
-    addCasillaRandom(&game);  // Añadir las primeras dos casillas aleatorias
-    addCasillaRandom(&game);
-
+    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return 1;
@@ -42,6 +40,34 @@ int main() {
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         return 1;
     }
+        // Llamar a la función de GUI para mostrar el mensaje inicial
+    if (!show_initial_message(renderer)) {
+        printf("Failed to render initial message!\n");
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    // Pedir tamaño de tablero al usuario
+    printf("Enter board size (between 3 and 5): ");
+    scanf("%d", &game.tamanoTablero);
+    while (game.tamanoTablero < 3 || game.tamanoTablero > 5) {
+        printf("Invalid size! Please enter a size between 3 and 5: ");
+        scanf("%d", &game.tamanoTablero);
+    }
+
+    if (!init_board(&game)) {  // Validación adicional para init_board
+        printf("Failed to initialize the board.\n");
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+    addCasillaRandom(&game);  // Añadir las primeras dos casillas aleatorias
+    addCasillaRandom(&game);
 
     int quit = 0;
     SDL_Event e;
