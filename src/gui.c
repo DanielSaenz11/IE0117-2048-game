@@ -11,8 +11,8 @@ void render_board(Game *game, SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
-    for (int i = 0; i < game->size; i++) {
-        for (int j = 0; j < game->size; j++) {
+    for (int i = 0; i < game->tamanoTablero; i++) {
+        for (int j = 0; j < game->tamanoTablero; j++) {
             SDL_Rect cell;
             cell.x = j * cell_size;
             cell.y = i * cell_size;
