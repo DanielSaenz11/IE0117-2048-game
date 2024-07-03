@@ -7,11 +7,20 @@
 #include <SDL2/SDL_ttf.h>
 
 //Funcion para mostrar game over
-void render_game_over(SDL_Renderer *renderer, TTF_Font *font) {
+void render_game_over(SDL_Renderer *renderer) {
     SDL_Color textColor = {255, 0, 0};  // Color rojo para el texto
 
     char text[] = "Game Over";
+    
+     // Cargar la fuente
 
+    TTF_Font *font = TTF_OpenFont("include/NightPumpkind-1GpGv.ttf", 24);  // Ajustar la ruta y tamaño de la fuente según necesites
+    if (font == NULL) {
+        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+        return 1;
+    }
+
+    
     SDL_Surface *surface = TTF_RenderText_Solid(font, text, textColor);
     if (surface == NULL) {
         printf("Failed to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
