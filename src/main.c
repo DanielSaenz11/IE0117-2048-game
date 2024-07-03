@@ -46,18 +46,22 @@ int main() {
             } else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
+                    case 'u':
                         moverCasillas(&game, 'w');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_DOWN:
+                    case 'd':
                         moverCasillas(&game, 's');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_LEFT:
+                    case 'l':
                         moverCasillas(&game, 'a');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_RIGHT:
+                    case 'r':
                         moverCasillas(&game, 'd');
                         addCasillaRandom(&game);
                         break;
