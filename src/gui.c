@@ -18,7 +18,6 @@ void render_board(Game *game, SDL_Renderer *renderer) {
     TTF_Font *font = TTF_OpenFont("include/NightPumpkind-1GpGv.ttf", 24);  // Ajustar la ruta y tamaño de la fuente según necesites
     if (font == NULL) {
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
-        return 1;
     }
     
     SDL_Color textColor = {255, 255, 255};  // Color blanco para el texto (puedes ajustar según necesites)
