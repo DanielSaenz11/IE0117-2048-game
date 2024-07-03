@@ -13,7 +13,7 @@ void render_board(Game *game, SDL_Renderer *renderer) {
     SDL_RenderClear(renderer);
 
     // Cargar la fuente y configurar el color del texto
-    TTF_Font *font = TTF_OpenFont("path_to_your_font.ttf", 24);  // Ajustar la ruta y tamaño de la fuente
+    TTF_Font *font = TTF_OpenFont("../fonts/arial.ttf", 24);  // Ajustar la ruta y tamaño de la fuente
     if (font == NULL) {
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
         return;
