@@ -8,7 +8,6 @@
 // Declaración de funciones específicas de la GUI
 void render_board(Game *game, SDL_Renderer *renderer);
 
-int show_initial_message(SDL_Renderer *renderer)
 
 #endif /* GUI_H */
 
