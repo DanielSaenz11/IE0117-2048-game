@@ -77,15 +77,25 @@ int main() {
                      case 'q':  // Agregar soporte para 'q'
                         quit = 1;
                          break;
-        break;
+                          break;
+                    default:
+                        break;
                 }
             }
-            
+
+            // Comprobar si se ha perdido el juego
+            if (checkPerder(&game)) {
+                render_game_over(renderer, font);
+                SDL_RenderPresent(renderer);
+                usleep(2000000);  // Esperar 2 segundos antes de salir
+                quit = 1;  // Salir del bucle principal
+            }
+
+            // Renderizar el tablero en cada iteración
+            render_board(&game, renderer, font);
         }
-        
-        render_board(&game, renderer);
-        SDL_Delay(100);
     }
+        
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
