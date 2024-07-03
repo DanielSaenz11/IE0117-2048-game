@@ -46,10 +46,16 @@ int main() {
     printf("Enter board size: ");
     scanf("%d", &game.tamanoTablero);
 
-    init_board(&game);
-    add_random_tile(&game);
-    add_random_tile(&game);
+    if (!init_board(&game)) {  // Validación adicional para init_board
+        printf("Failed to initialize the board.\n");
+        return 1;
+    }
+    addCasillaRandom(&game);  // Cambio: add_random_tile -> addCasillaRandom
+    addCasillaRandom(&game);  // Cambio: add_random_tile -> addCasillaRandom
 
+
+    
+    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return 1;
@@ -69,27 +75,27 @@ int main() {
 
     int quit = 0;
     SDL_Event e;
-    while (!quit && !check_game_over(&game)) {
+    while (!quit && !checkPerder(&game)) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = 1;
             } else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
-                        move_tiles(&game, 'w');
-                        add_random_tile(&game);
+                        moverCasillas(&game, 'w');
+                        addCasillasRandom(&game);
                         break;
                     case SDLK_DOWN:
-                        move_tiles(&game, 's');
-                        add_random_tile(&game);
+                        moverCsilla(&game, 's');
+                        addCasillaRandom(&game);
                         break;
                     case SDLK_LEFT:
-                        move_tiles(&game, 'a');
-                        add_random_tile(&game);
+                        moverCasilla(&game, 'a');
+                        addCasillaRandom(&game);
                         break;
                     case SDLK_RIGHT:
-                        move_tiles(&game, 'd');
-                        add_random_tile(&game);
+                        moverCasillas(&game, 'd');
+                        addCasillaRandom(&game);
                         break;
                 }
             }
