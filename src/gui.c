@@ -109,6 +109,6 @@ int main() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    render_board(&game);
+    render_board(&game, renderer);
     return 0;
 }
