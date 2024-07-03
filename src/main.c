@@ -25,6 +25,11 @@ int main() {
         return 1;
     }
 
+    if (TTF_Init() < 0) {
+    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+    return 1;
+    }
+    
     SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -79,8 +84,8 @@ int main() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
+    
     freeTablero(&game);
-
+    TTF_QUIT();
     return 0;
 }
