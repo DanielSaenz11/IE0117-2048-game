@@ -1,101 +1,58 @@
-#include "../include/game-logic.h"
-#include "../include/movement.h"
-#include "../include/gui.h"
-#include <stdlib.h>
-#include <time.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <stdio.h>
+#include "gui.h"
+#include "game-logic.h"
 
 int main() {
-    srand(time(NULL));
+    SDL_Window *window = NULL;
+    SDL_Renderer *renderer = NULL;
+    int board_size = 0;
 
-    char direccion;
-    Game game;
-    printf("Enter board size: ");
-    scanf("%d", &game.tamanoTablero);
-    
-    if (!init_board(&game)) {  // Validación adicional para init_board
-        printf("Failed to initialize the board.\n");
-        return 1;
-    }
-    addCasillaRandom(&game);  // Añadir las primeras dos casillas aleatorias
-    addCasillaRandom(&game);
-
+    // Inicializar SDL y crear ventana y renderer
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return 1;
     }
 
-    if (TTF_Init() < 0) {
-    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-    return 1;
-    }
-    
-    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("2048 Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return 1;
     }
 
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
-        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
         return 1;
     }
 
-    int quit = 0;
-    SDL_Event e;
-    while (!quit && !checkPerder(&game)) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
-                quit = 1;
-            } else if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
-                    case SDLK_UP:
-                    case 'u':
-                        moverCasillas(&game, 'u');
-                        addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'u');
-                        break;
-                    case SDLK_DOWN:
-                    case 'd':
-                        moverCasillas(&game, 'd');
-                        addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'd');
-                        break;
-                    case SDLK_LEFT:
-                    case 'l':
-                        moverCasillas(&game, 'l');
-                        addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'l');
-                        break;
-                    case SDLK_RIGHT:
-                    case 'r':
-                        moverCasillas(&game, 'r');
-                        addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'r');
-                        break;
-                     case 'q':  // Agregar soporte para 'q'
-                        quit = 1;
-                         break;
-                          break;
-                    default:
-                        break;
-                }
-            }
+    // Mostrar ventana de selección de tamaño de tablero
+    board_size = show_board_size_selection(renderer);
 
-
-            // Renderizar el tablero en cada iteración
-            render_board(&game, renderer);
-        }
+    // Verificar tamaño seleccionado
+    if (board_size < 3 || board_size > 5) {
+        printf("Invalid board size selected!\n");
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
     }
-        
+
+    // Inicializar juego con el tamaño seleccionado
+    Game game;
+    initialize_game(&game, board_size);
+
+    // Ciclo principal del juego
+    while (!game_over(&game)) {
+        // Renderizar el tablero y manejar eventos
+        render_board(&game, renderer);
+        handle_events(&game);
+    }
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    
-    freeTablero(&game);
-    TTF_Quit();
     return 0;
 }
