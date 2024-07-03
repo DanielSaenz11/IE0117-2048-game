@@ -61,6 +61,10 @@ int main() {
                         moverCasillas(&game, 'd');
                         addCasillaRandom(&game);
                         break;
+                     case 'q':  // Agregar soporte para 'q'
+                        quit = 1;
+                         break;
+        break;
                 }
             }
         }
