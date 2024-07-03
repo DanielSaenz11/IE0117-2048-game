@@ -79,15 +79,7 @@ int main() {
                          break;
         break;
                 }
-             // Comprobar si se ha perdido el juego
-        if (checkPerder(&game)) {
-            render_game_over(renderer, font);
-            DL_RenderPresent(renderer);
-            usleep(2000000);  // Esperar 2 segundos antes de salir
-            quit = 1;  // Salir del bucle principal
-        }
             }
-            
             
         }
         
