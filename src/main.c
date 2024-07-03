@@ -8,6 +8,7 @@
 int main() {
     srand(time(NULL));
 
+    char direccion;
     Game game;
     printf("Enter board size: ");
     scanf("%d", &game.tamanoTablero);
