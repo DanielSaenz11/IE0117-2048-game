@@ -8,8 +8,5 @@
 // Declaración de funciones específicas de la GUI
 void render_board(Game *game, SDL_Renderer *renderer);
 
-//Funcion para Game Over
-void render_game_over(SDL_Renderer);
-
 #endif /* GUI_H */
 
