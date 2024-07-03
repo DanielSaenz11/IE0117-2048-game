@@ -6,54 +6,6 @@
 #include "movement.h"
 #include <SDL2/SDL_ttf.h>
 
-//Funcion para mostrar game over
-void render_game_over(SDL_Renderer *renderer) {
-    SDL_Color textColor = {255, 0, 0};  // Color rojo para el texto
-
-    char text[] = "Game Over";
-    
-     // Cargar la fuente
-
-    TTF_Font *font = TTF_OpenFont("include/NightPumpkind-1GpGv.ttf", 24);  // Ajustar la ruta y tamaño de la fuente según necesites
-    if (font == NULL) {
-        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
-        return 1;
-    }
-
-    
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text, textColor);
-    if (surface == NULL) {
-        printf("Failed to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
-        return;
-    }
-
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (texture == NULL) {
-        printf("Failed to create texture from surface! SDL Error: %s\n", SDL_GetError());
-        SDL_FreeSurface(surface);
-        return;
-    }
-
-    // Configurar posición del texto en la ventana
-    SDL_Rect textRect;
-    textRect.x = (800 - surface->w) / 2;  // Ajusta la posición X centrada según el tamaño de tu ventana
-    textRect.y = (600 - surface->h) / 2;  // Ajusta la posición Y centrada según el tamaño de tu ventana
-    textRect.w = surface->w;
-    textRect.h = surface->h;
-
-    // Renderizar texto en la pantalla
-    SDL_RenderCopy(renderer, texture, NULL, &textRect);
-
-    TTF_Font *font = TTF_OpenFont("include/NightPumpkind-1GpGv.ttf", 24);  // Ajustar la ruta y tamaño de la fuente según necesites
-    if (font == NULL) {
-        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
-        return 1;
-    }
-
-    // Liberar recursos
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
-}
 
 // Función para renderizar el tablero con SDL y SDL_ttf
 void render_board(Game *game, SDL_Renderer *renderer) {
