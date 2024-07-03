@@ -86,6 +86,6 @@ int main() {
     SDL_Quit();
     
     freeTablero(&game);
-    TTF_QUIT();
+    TTF_Quit();
     return 0;
 }
