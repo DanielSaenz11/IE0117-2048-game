@@ -115,11 +115,11 @@ La siguiente imagen es con fines ilustrativos de la forma en que se va observar 
 1. `time.h`
     - Tiempo transcurrido y posición de nuevas casillas
 3. `stdio.h`
-4. SDL2
+4. `SDL2`
     - Implementacion de ventana grafica
 5. `stdlib.h`
     - Memoria dinámica para el manejo del arreglo de números variable
-6. SDL2_ttf
+6. `SDL2_ttf`
    - Se utiliza en conjunto con SDL2 para manejar fuentes.
 
 
