@@ -47,22 +47,22 @@ int main() {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
                     case 'u':
-                        moverCasillas(&game, 'w');
+                        moverCasillas(&game, 'u');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_DOWN:
                     case 'd':
-                        moverCasillas(&game, 's');
+                        moverCasillas(&game, 'd');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_LEFT:
                     case 'l':
-                        moverCasillas(&game, 'a');
+                        moverCasillas(&game, 'l');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_RIGHT:
                     case 'r':
-                        moverCasillas(&game, 'd');
+                        moverCasillas(&game, 'r');
                         addCasillaRandom(&game);
                         break;
                      case 'q':  // Agregar soporte para 'q'
