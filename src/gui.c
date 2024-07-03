@@ -4,6 +4,7 @@
 #include "gui.h" 
 #include "game-logic.h"
 #include "movement.h"
+#include <SDL2/SDL_ttf.h>
 
 // Función para el render
 
