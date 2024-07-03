@@ -19,16 +19,16 @@ void render_board(Game *game, SDL_Renderer *renderer) {
             cell.w = cell_size - 5;
             cell.h = cell_size - 5;
 
-            if (game->board[i][j] == 0) {
+            if (game->tablero[i][j] == 0) {
                 SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
             } else {
-                SDL_SetRenderDrawColor(renderer, 100 + game->board[i][j] * 10, 100 + game->board[i][j] * 5, 100 + game->board[i][j] * 2, 255);
+                SDL_SetRenderDrawColor(renderer, 100 + game->tablero[i][j] * 10, 100 + game->tablero[i][j] * 5, 100 + game->tablero[i][j] * 2, 255);
             }
             SDL_RenderFillRect(renderer, &cell);
 
-            if (game->board[i][j] != 0) {
+            if (game->tablero[i][j] != 0) {
                 char text[5];
-                sprintf(text, "%d", game->board[i][j]);
+                sprintf(text, "%d", game->tablero[i][j]);
                 // Aquí puedes añadir código para renderizar texto usando SDL_ttf o alguna otra biblioteca
             }
         }
