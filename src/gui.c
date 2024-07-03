@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "gui.h" 
 #include "game-logic.h"
+#include "movement.h"
 
 // Funcion para el render
 
