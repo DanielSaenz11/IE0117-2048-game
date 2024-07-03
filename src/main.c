@@ -54,21 +54,25 @@ int main() {
                     case 'u':
                         moverCasillas(&game, 'u');
                         addCasillaRandom(&game);
+                        fusionarCasillas(&game, 'u');
                         break;
                     case SDLK_DOWN:
                     case 'd':
                         moverCasillas(&game, 'd');
                         addCasillaRandom(&game);
+                        fusionarCasillas(&game, 'd');
                         break;
                     case SDLK_LEFT:
                     case 'l':
                         moverCasillas(&game, 'l');
                         addCasillaRandom(&game);
+                        fusionarCasillas(&game, 'l');
                         break;
                     case SDLK_RIGHT:
                     case 'r':
                         moverCasillas(&game, 'r');
                         addCasillaRandom(&game);
+                        fusionarCasillas(&game, 'r');
                         break;
                      case 'q':  // Agregar soporte para 'q'
                         quit = 1;
