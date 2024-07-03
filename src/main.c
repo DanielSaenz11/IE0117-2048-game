@@ -103,7 +103,7 @@ int main() {
             }
 
             // Renderizar el tablero en cada iteración
-            render_board(&game, renderer, font);
+            render_board(&game, renderer);
         }
     }
         
