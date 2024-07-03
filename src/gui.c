@@ -84,10 +84,10 @@ int main() {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
                         moverCasillas(&game, 'u');
-                        addCasillasRandom(&game);
+                        addCasillaRandom(&game);
                         break;
                     case SDLK_DOWN:
-                        moverCsilla(&game, 'd');
+                        moverCasilla(&game, 'd');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_LEFT:
