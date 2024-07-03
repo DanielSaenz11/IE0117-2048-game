@@ -87,11 +87,11 @@ int main() {
                         addCasillaRandom(&game);
                         break;
                     case SDLK_DOWN:
-                        moverCasilla(&game, 'd');
+                        moverCasillas(&game, 'd');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_LEFT:
-                        moverCasilla(&game, 'l');
+                        moverCasillas(&game, 'l');
                         addCasillaRandom(&game);
                         break;
                     case SDLK_RIGHT:
@@ -109,6 +109,6 @@ int main() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    free_board(&game);
+    render_board(&game);
     return 0;
 }
