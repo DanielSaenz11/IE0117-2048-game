@@ -44,7 +44,7 @@ int main() {
 
     Game game;
     printf("Enter board size: ");
-    scanf("%d", &game.size);
+    scanf("%d", &game.tamanoTablero);
 
     init_board(&game);
     add_random_tile(&game);
@@ -55,7 +55,7 @@ int main() {
         return 1;
     }
 
-    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.size * 100, game.size * 100, SDL_WINDOW_SHOWN);
+    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return 1;
