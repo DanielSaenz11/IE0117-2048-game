@@ -104,20 +104,23 @@
 
 ## Bibliotecas
 
-### Bibliotecas a utilizar: SDL2
+### Bibliotecas a utilizar:
 La siguiente imagen es con fines ilustrativos de la forma en que se va observar el juego al terminar su implementación.
 
   <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
     <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
   </a>
 
-### Bibliotecas a utilizar
 
 1. `time.h`
     - Tiempo transcurrido y posición de nuevas casillas
-2. `stdio.h`
-3. `stdlib.h`
+3. `stdio.h`
+4. SDL2
+    - Implementacion de ventana grafica
+5. `stdlib.h`
     - Memoria dinámica para el manejo del arreglo de números variable
+6. SDL2_ttf
+   - Se utiliza en conjunto con SDL2 para manejar fuentes.
 
 
 ### Installation
