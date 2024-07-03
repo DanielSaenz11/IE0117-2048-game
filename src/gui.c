@@ -13,6 +13,13 @@ void render_board(Game *game, SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
+
+    //Inicializar la fuente
+    if (TTF_Init() < 0) {
+    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+    return;
+    }
+
     // Cargar la fuente y configurar el color del texto
     TTF_Font *font = TTF_OpenFont("path_to_your_font.ttf", 24);  // Ajusta la ruta y tamaño de la fuente
     SDL_Color textColor = {0, 0, 0, 255};  // Color del texto: negro
@@ -33,6 +40,7 @@ void render_board(Game *game, SDL_Renderer *renderer) {
             SDL_RenderFillRect(renderer, &cell);
 
             if (game->tablero[i][j] != 0) {
+                SDL_Color textColor = {255, 255, 255};  // Color blanco para el texto (puedes ajustar según necesites)
                 char text[5];
                 sprintf(text, "%d", game->tablero[i][j]);
 
