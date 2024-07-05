@@ -227,6 +227,32 @@ int checkPerder(Game* game) {
     return 0;
 }
 
+int checkVictoria(Game* game) {
+    if (game == NULL) {
+        printf("Error: Direccion de game indefinida\n");
+        return -1;
+    }
+
+    if (game->tablero == NULL) {
+        printf("Error: No se pudo reservar memoria correctamente\n");
+        return -1;
+    }
+
+    int esGanador = 0;
+
+    for (int i = 0; i < game->tamanoTablero; i++) {
+
+        for (int j = 0; j < game->tamanoTablero; j++) {
+
+            if (game->tablero[i][j] == 2048) {
+                esGanador = 1;
+            }
+        }
+    }
+
+    return esGanador;
+}
+
 /*
  * actualizarPuntuacion() cambia el valor de la variable puntuacion con el valor de fusion
  * 
