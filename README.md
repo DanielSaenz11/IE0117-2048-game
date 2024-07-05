@@ -18,10 +18,12 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 
-# IE0117-2048-game
-Repositorio para el proyecto final del curso IE-0117 Programación bajo plataformas abiertas de Ingeniería Eléctrica en la Universidad de Costa Rica.
+
 
 <!-- PROJECT LOGO -->
+
+# IE0117-2048-game
+
 <br />
 <div align="center">
   <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
