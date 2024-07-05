@@ -84,7 +84,7 @@ int init_board(Game* game) {
     game->tablero = (int **)malloc(game->tamanoTablero * sizeof(int *));
 
     if (game->tablero == NULL) {
-        printf("Error: No se pudo reservar memoria correctamente\n");
+        fprintf(stderr, "Error al reservar memoria dinamica para las filas del tablero: %s\n", strerror(errno));
         return 0;
     }
 
@@ -93,7 +93,7 @@ int init_board(Game* game) {
         game->tablero[i] = (int *)malloc(game->tamanoTablero * sizeof(int));
 
         if (game->tablero[i] == NULL) {
-            printf("Error: No se pudo reservar memoria correctamente\n");
+            fprintf(stderr, "Error al reservar memeria dinamica para las filas del tablero: %s\n", strerror(errno));
             return 0;
         }
 
@@ -114,7 +114,13 @@ int init_board(Game* game) {
  */
 void printTablero(Game* game) {
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
+        return;
+    }
+
+    if (game->tablero == NULL) {
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
+        return;
     }
 
     printf("Puntuacion: %d\n", game->puntuacion);
@@ -138,12 +144,12 @@ void printTablero(Game* game) {
  */
 void addCasillaRandom(Game* game) {
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
         return;
     }
 
     if (game->tablero == NULL) {
-        printf("Error: No se pudo reservar memoria correctamente\n");
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
         return;
     }
 
@@ -199,12 +205,12 @@ void addCasillaRandom(Game* game) {
  */
 int checkPerder(Game* game) {
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
         return -1;
     }
 
     if (game->tablero == NULL) {
-        printf("Error: No se pudo reservar memoria correctamente\n");
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
         return -1;
     }
 
@@ -235,12 +241,11 @@ int checkPerder(Game* game) {
  */
 int checkVictoria(Game* game) {
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
-        return -1;
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
     }
 
     if (game->tablero == NULL) {
-        printf("Error: No se pudo reservar memoria correctamente\n");
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
         return -1;
     }
 
@@ -277,8 +282,13 @@ void actualizarPuntuacion(Game* game, int puntuacion) {
  */
 void freeTablero(Game* game) {
     if (game == NULL) {
-        printf("Error: Direccion de game indefinida\n");
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
         return;
+    }
+
+    if (game->tablero == NULL) {
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
+        return -1;
     }
 
     for (int i = 0; i < game->tamanoTablero; i++) {
