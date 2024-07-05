@@ -33,12 +33,12 @@
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
 
   <p align="center">
-    Crear un programa interactivo del juego 2048 en lenguaje de programación C.
+    Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
     <br />
     
 </div>
 
-A modo de descripción general, el proyecto dentro de este repositorio consiste en una implementación del juego 2048, el cual corresponde a un juego donde los jugadores deslizan fichas numeradas con múltiplos de 2 en una cuadrícula para combinarlas y crear una ficha con el valor de 2048.
+A modo de descripción general, este repositorio consiste en la implementación con el lenguaje de programación de C del juego 2048. Este juego consiste en un tablero, donde los jugadores deslizan fichas numeradas con múltiplos de 2 en una cuadrícula para combinarlas y crear una ficha con el valor de 2048.
 
 ## Colaboradores
 - **Daniel Alberto Sáenz Obando** - C37099
@@ -49,7 +49,7 @@ A modo de descripción general, el proyecto dentro de este repositorio consiste 
 
 ### SDL2
 
-Primero, se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
+Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
 
  ```sh
    sudo apt-get update 
@@ -62,8 +62,9 @@ Ahora, se ejecuta el siguiente comando para instalar la biblioteca `SDL2`:
 ```
 
 Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la instalación, se utiliza el siguiente comando:
+
 ```sh
-   pkg-config -- list-all | grep sdl2
+   ls /usr/include/SDL2/SDL.h
 ```
 Este es el archivo de encabezado de la biblioteca, si existe en el sistema se muestra que la biblioteca fue instalada correctamente. 
 
@@ -74,28 +75,22 @@ Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2
  ```sh
    sudo apt-get install libsdl2-ttf-dev
 ```
-Para la verificación de la instalación es con el comando:
-```sh
-  pkg-config --list-all | grep SDL2_ttf
-```
 
-### Instalacion de fuente tipográfica
-
-Para el texto que aparece en la ventana gráfica fue necesario instalar una fuente tipográfica. 
-1. Acceder a FontSpace desde el navegador al siguiente link y descargar la fuente.
-   ```
-      https://www.fontspace.com/night-pumpkind-font-f86994
-   ```
-2. Seleccionar el repositorio como destino de descarga.
-3. Descomprimir el archivo .zip de descarga puede ser manualmente o ejecutando el siguiente comando:
+### Instalacion de fuente tipografica
+Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
+1. Acceder a FontSpace desde el navegador.
+2. En la pestaña de busqueda de FontSpace buscar Italic.
+3. Descargar Nigth Pumpkind que fue la fuente utilizada en el proyecto.
+4. Seleccionar el repositorio como destino de descarga.
+5. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
    ```sh
-      unzip night-pumpkind-font.zip
+      unzip nigth-pumpkind-font
    ```
-8. Extraer el archivo con la fuente que tiene extensión `.ttf`
-9. Otrorgarle los permisos de ejecución de la fuente de la siguiente manera:
+6. Extraer el archivo con la fuente que tiene extension .ttf
+7. Otrorgarle los permisos de ejecucion de la fuente de la siguiente manera:
    ```sh
       chmod +w “NightPumpkind-1GpGv.ttf"
-   ```
+
 ## Ejecución del build system (Meson)
 
 Primero se debe instalar Meson en el equipo con el siguiente comando:
@@ -140,6 +135,13 @@ Por último, ejecutar el ejecutable generado `2048`:
 ```sh
    ./2048
 ```
+
+## Instrucciones de juego
+Después de la compilación, se tiene que el juego funciona de manera que, los movimientos de las casillas se realizan con las flechas del teclado. En caso de querer salir del juego, se puede cerrar la ventana, tocar la tecla ESCAPE o la tecla `q`. Ahora bien, durante el juego, con cada movimiento aparecen nuevas casillas en posiciones aleatorias. Si dos casillas son iguales y no hay ninguna casilla ocupada entre ellas, entonces si se mueve una de ellas hacia la otra, las casillas se fusionan y pasan a tener el doble del valor anterior.
+
+Por un lado, la condición de pérdida del juego consiste en que el tablero se llene y que no haya un movimiento disponible válido. En ese caso, se cierra la ventana y se muestra un mensaje que indica el resultado en la terminal.
+
+Por otro lado, la condición de victoria corresponde a que se fusionen las casillas y se llegue a un caso donde se forma una casilla con valor 2048. En ese momento, se cierra la ventana y se muestra un mensaje de victoria.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
