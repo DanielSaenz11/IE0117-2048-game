@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 #include <stdio.h>
-#include "../include/gui.h" 
-#include "../include/game-logic.h"
-#include "../include/movement.h"
+#include "gui.h" 
+#include "game-logic.h"
+#include "movement.h"
 #include <SDL2/SDL_ttf.h>
 
 
@@ -23,7 +23,7 @@ void render_tablero(Game* game, SDL_Renderer* renderer) {
     SDL_RenderClear(renderer);
 
     // Cargar la fuente para el tablero y la puntuacion
-    TTF_Font *font = TTF_OpenFont("NightPumpkind-1GpGv.ttf", 24);  // Ruta y tamano de la fuente 
+    TTF_Font *font = TTF_OpenFont("./NightPumpkind-1GpGv.ttf", 24);  // Ruta y tamano de la fuente
     if (font == NULL) {
         printf("Error al cargar la fuente del programa: %s\n", TTF_GetError());
         return;

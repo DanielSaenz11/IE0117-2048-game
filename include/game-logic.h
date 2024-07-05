@@ -8,6 +8,11 @@ typedef struct Game {
     int tamanoTablero;
 } Game;
 
+typedef enum {
+    NULL_POINTER = -1,
+    BAD_MEMORY_ALLOCATION = -2
+} ErrorCode;
+
 /*
  * checkSize() verifica el que el input del usuario sea un entero
  * en el rango establecido
