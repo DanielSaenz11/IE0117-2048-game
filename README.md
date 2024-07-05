@@ -120,13 +120,14 @@ La siguiente imagen es con fines ilustrativos de la forma en que se va observar 
     - Memoria dinámica para el manejo del arreglo de números variable
 
 
-## Instalación de las biblioteca SDL2
+## Instalación de las bibliotecas SDL2 y SDL2_ttf
 
+### SDL2
 
 Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones
 
  ```sh
-   sudo apt-get install libsdl2-dev 
+   sudo apt-get update 
 ```
 
 Ahora se ejecuta el siguiente comando para instalar la biblioteca `SDL2`
@@ -141,6 +142,16 @@ Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la 
    ls /usr/include/SDL2/SDL.h
 ```
 Este es el archivo de encabezado de la biblioteca, si existe en el sistema se muestra que la biblioteca fue instalada correctamente. 
+
+### SDL2_ttf
+
+Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2_ttf`
+
+ ```sh
+   sudo apt-get install libsdl2-ttf-dev
+```
+
+Y con esto ya tendríamos las dependencias necesarias instaladas
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
