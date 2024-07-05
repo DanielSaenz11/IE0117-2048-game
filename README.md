@@ -60,9 +60,8 @@ Ahora, se ejecuta el siguiente comando para instalar la biblioteca `SDL2`:
 ```
 
 Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la instalación, se utiliza el siguiente comando:
-
 ```sh
-   ls /usr/include/SDL2/SDL.h
+   pkg-config -- list-all | grep sdl2
 ```
 Este es el archivo de encabezado de la biblioteca, si existe en el sistema se muestra que la biblioteca fue instalada correctamente. 
 
@@ -73,22 +72,28 @@ Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2
  ```sh
    sudo apt-get install libsdl2-ttf-dev
 ```
+Para la verificación de la instalación es con el comando:
+```sh
+  pkg-config --list-all | grep SDL2_ttf
+```
 
-### Instalacion de fuente tipografica
-Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
-1. Acceder a FontSpace desde el navegador.
-2. En la pestaña de busqueda de FontSpace buscar Italic.
-3. Descargar Nigth Pumpkind que fue la fuente utilizada en el proyecto.
-4. Seleccionar el repositorio como destino de descarga.
-5. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
-   ```sh
-      unzip nigth-pumpkind-font
+### Instalacion de fuente tipográfica
+
+Para el texto que aparece en la ventana gráfica fue necesario instalar una fuente tipográfica. 
+1. Acceder a FontSpace desde el navegador al siguiente link y descargar la fuente.
    ```
-6. Extraer el archivo con la fuente que tiene extension .ttf
-7. Otrorgarle los permisos de ejecucion de la fuente de la siguiente manera:
+      https://www.fontspace.com/night-pumpkind-font-f86994
+   ```
+2. Seleccionar el repositorio como destino de descarga.
+3. Descomprimir el archivo .zip de descarga puede ser manualmente o ejecutando el siguiente comando:
+   ```sh
+      unzip night-pumpkind-font.zip
+   ```
+8. Extraer el archivo con la fuente que tiene extensión `.ttf`
+9. Otrorgarle los permisos de ejecución de la fuente de la siguiente manera:
    ```sh
       chmod +w “NightPumpkind-1GpGv.ttf"
-
+   ```
 ## Ejecución del build system (Meson)
 
 Primero se debe instalar Meson en el equipo con el siguiente comando:
