@@ -74,6 +74,21 @@ Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2
    sudo apt-get install libsdl2-ttf-dev
 ```
 
+### Instalacion de fuente tipografica
+Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
+1. Accder a FontSpace desde el navegador.
+2. En la pestaña de busqueda de FontSpace y buscar Italic.
+3. Descargar Nigth Pumpkind.
+4. Seleccionar el repositorio como destino de descarga.
+5. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
+   ```sh
+      unzip nigth-pumpkind-font
+   ```
+6. Extraer el archivo con la fuente que tiene extension .ttf
+7. Otrorgarle los permisos de ejecucion de la fuente d ela siguiente manera:
+   ```sh
+      chmod +w “NightPumpkind-1GpGv.ttf"
+
 ## Ejecución del build system (Meson)
 
 Primero se debe instalar Meson en el equipo con el siguiente comando:
