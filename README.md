@@ -38,6 +38,8 @@
     
 </div>
 
+A modo de descripción general, este repositorio consiste en la implementación con el lenguaje de programación de C del juego 2048. Este juego consiste en un tablero, donde los jugadores deslizan fichas numeradas con múltiplos de 2 en una cuadrícula para combinarlas y crear una ficha con el valor de 2048.
+
 ## Colaboradores
 - **Daniel Alberto Sáenz Obando** - C37099
 - **Elsa Valeria Roman Astua** - C26910
@@ -133,6 +135,13 @@ Por último, ejecutar el ejecutable generado `2048`:
 ```sh
    ./2048
 ```
+
+## Instrucciones de juego
+Después de la compilación, se tiene que el juego funciona de manera que, los movimientos de las casillas se realizan con las flechas del teclado. En caso de querer salir del juego, se puede cerrar la ventana, tocar la tecla ESCAPE o la tecla `q`. Ahora bien, durante el juego, con cada movimiento aparecen nuevas casillas en posiciones aleatorias. Si dos casillas son iguales y no hay ninguna casilla ocupada entre ellas, entonces si se mueve una de ellas hacia la otra, las casillas se fusionan y pasan a tener el doble del valor anterior.
+
+Por un lado, la condición de pérdida del juego consiste en que el tablero se llene y que no haya un movimiento disponible válido. En ese caso, se cierra la ventana y se muestra un mensaje que indica el resultado en la terminal.
+
+Por otro lado, la condición de victoria corresponde a que se fusionen las casillas y se llegue a un caso donde se forma una casilla con valor 2048. En ese momento, se cierra la ventana y se muestra un mensaje de victoria.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
