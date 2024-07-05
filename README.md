@@ -85,7 +85,7 @@ Para el texto que aparece en la ventana grafica fue necesario instalar una fuent
       unzip nigth-pumpkind-font
    ```
 6. Extraer el archivo con la fuente que tiene extension .ttf
-7. Otrorgarle los permisos de ejecucion de la fuente d ela siguiente manera:
+7. Otrorgarle los permisos de ejecucion de la fuente de la siguiente manera:
    ```sh
       chmod +w “NightPumpkind-1GpGv.ttf"
 
@@ -94,7 +94,13 @@ Para el texto que aparece en la ventana grafica fue necesario instalar una fuent
 Primero se debe instalar Meson en el equipo con el siguiente comando:
 
  ```sh
-   sudo apt install meson 
+   pip3 install --user meson 
+```
+
+Esto instala meson en el path `~/.local/`, por lo cual hay que agregarl `~/.local/bin` al PATH:
+
+ ```sh
+   export PATH=$PATH:~/.local/bin
 ```
 
 Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
