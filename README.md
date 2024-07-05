@@ -33,7 +33,7 @@
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
 
   <p align="center">
-    Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
+    Crear un programa interactivo del juego 2048 en lenguaje de programación C.
     <br />
     
 </div>
