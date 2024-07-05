@@ -144,8 +144,39 @@ Este es el archivo de encabezado de la biblioteca, si existe en el sistema se mu
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Ejecucuión de Meson
+## Ejecución del build system (Meson)
 
+Primero se debe instalar Meson en el equipo con el siguiente comando
+
+ ```sh
+   pip install meson
+```
+
+Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando
+
+ ```sh
+   sudo apt-get install ninja-build
+```
+
+Con esto ya tenemos instalado lo necesario. Como siguiente paso clona el repositorio de este proyecto y dirigirse al directorio del mismo
+
+```sh
+   git clone https://github.com/DanielSaenz11/IE0117-2048-game.git
+   cd IE0117-2048-game
+```
+
+Posteriormente ir al directorio `build` y compilar el proyecto utilizando el comando `ninja` 
+
+```sh
+   cd build
+   ninja
+```
+
+Y por último ejecutar el ejecutable generado
+
+```sh
+   ./2048
+```
 
 
 
