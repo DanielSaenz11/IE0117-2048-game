@@ -122,7 +122,6 @@ int main() {
     
     if (checkPerder(&game)) {
         printf("Perdiste :(\n");
-        printf("Puntuacion obtenida: %d\n", game.puntuacion);
     }
 
     else if (checkVictoria(&game)) {
@@ -132,6 +131,8 @@ int main() {
     else {
         printf("Vuelve pronto\n");
     }
+
+    printf("Puntuacion obtenida: %d\n", game.puntuacion);
 
     freeTablero(&game); // Liberar memoria dinamica
 
