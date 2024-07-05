@@ -47,19 +47,19 @@
 
 ### SDL2
 
-Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones
+Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
 
  ```sh
    sudo apt-get update 
 ```
 
-Ahora se ejecuta el siguiente comando para instalar la biblioteca `SDL2`
+Ahora, se ejecuta el siguiente comando para instalar la biblioteca `SDL2`:
 
  ```sh
    sudo apt-get install libsdl2-dev
 ```
 
-Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la Instalación  podemos utilizar el siguiente comando:
+Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la instalación, se utiliza el siguiente comando:
 
 ```sh
    ls /usr/include/SDL2/SDL.h
@@ -68,51 +68,46 @@ Este es el archivo de encabezado de la biblioteca, si existe en el sistema se mu
 
 ### SDL2_ttf
 
-Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2_ttf`
+Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2_ttf`:
 
  ```sh
    sudo apt-get install libsdl2-ttf-dev
 ```
 
-Y con esto ya tendríamos las dependencias necesarias instaladas
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Ejecución del build system (Meson)
 
-Primero se debe instalar Meson en el equipo con el siguiente comando
+Primero se debe instalar Meson en el equipo con el siguiente comando:
 
  ```sh
    sudo apt install meson 
 ```
 
-Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando
+Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
 
  ```sh
    sudo apt-get install ninja-build
 ```
 
-Con esto ya tenemos instalado lo necesario. Como siguiente paso clona el repositorio de este proyecto y dirigirse al directorio del mismo
+Como siguiente paso, se clona el repositorio de este proyecto y se dirige hacia el directorio del mismo:
 
 ```sh
    git clone https://github.com/DanielSaenz11/IE0117-2048-game.git
    cd IE0117-2048-game
 ```
 
-Posteriormente escribir el siguiente comando para ejecutar configurar el meson en una carpeta que se llamará `build`
-
+Posteriormente, se escribe el siguiente comando para ejecutar configurar el meson en una carpeta que se llamará `build`:
 ```sh
    meson setup build
 ```
 
-Ahora debe dirigirse al directorio `build` y compilar con el comando`ninja`
+Ahora, debe dirigirse al directorio `build` y compilar con el comando `ninja`:
 
 ```sh
    cd build
    ninja
 ```
 
-Y por último ejecutar el ejecutable generado `2048`
+Por último, ejecutar el ejecutable generado `2048`:
 
 ```sh
    ./2048
