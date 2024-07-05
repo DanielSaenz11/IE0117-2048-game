@@ -11,75 +11,92 @@ int main() {
 
     char direccion;
     Game game;
-    printf("Enter board size: ");
+    printf("Ingrese el tamano del tablero para jugar: ");
     scanf("%d", &game.tamanoTablero);
     
     if (!init_board(&game)) {  // Validación adicional para init_board
-        printf("Failed to initialize the board.\n");
+        printf("Error al inicializar el tablero.\n");
         return 1;
     }
     
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        printf("No se pudo inicializar SDL. SDL Error: %s\n", SDL_GetError());
         return 1;
     }
 
     if (TTF_Init() < 0) {
-    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-    return 1;
+        printf("No se pudo inicializar SDL_ttf. SDL_ttf Error: %s\n", TTF_GetError());
+        return 1;
     }
     
-    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100, SDL_WINDOW_SHOWN);
+    SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100 + 50, SDL_WINDOW_SHOWN);
     if (window == NULL) {
-        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+        printf("No se pudo crear la ventana. SDL Error: %s\n", SDL_GetError());
         return 1;
     }
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
-        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        printf("No se pudo inicializar el renderer. SDL Error: %s\n", SDL_GetError());
         return 1;
     }
        
-    addCasillaRandom(&game);  // Añadir las primeras dos casillas aleatorias
+    // Añadir las primeras dos casillas aleatorias en el tablero
+    addCasillaRandom(&game);
     addCasillaRandom(&game);
 
     int quit = 0;
-    SDL_Event e;
+    SDL_Event evento;
+
     while (!quit && !checkPerder(&game)) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
+
+        while (SDL_PollEvent(&evento) != 0) {
+
+            if (evento.type == SDL_QUIT) {
                 quit = 1;
-            } else if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
+            } 
+            else if (evento.type == SDL_KEYDOWN) {
+
+                switch (evento.key.keysym.sym) {
+
                     case SDLK_UP:
                     case 'u':
-                        moverCasillas(&game, 'u');
+                        direccion = 'u';
+                        moverCasillas(&game, direccion);
                         addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'u');
+                        fusionarCasillas(&game, direccion);
                         break;
+
                     case SDLK_DOWN:
                     case 'd':
-                        moverCasillas(&game, 'd');
+                        direccion = 'd';
+                        moverCasillas(&game, direccion);
                         addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'd');
+                        fusionarCasillas(&game, direccion);
                         break;
+
                     case SDLK_LEFT:
                     case 'l':
+                        direccion = 'l';
                         moverCasillas(&game, 'l');
                         addCasillaRandom(&game);
                         fusionarCasillas(&game, 'l');
                         break;
+
                     case SDLK_RIGHT:
                     case 'r':
-                        moverCasillas(&game, 'r');
+                        direccion = 'r';
+                        moverCasillas(&game, direccion);
                         addCasillaRandom(&game);
-                        fusionarCasillas(&game, 'r');
+                        fusionarCasillas(&game, direccion);
                         break;
-                     case 'q':  // Agregar soporte para 'q'
+                    
+                    // Para salir del programa
+                    case SDLK_ESCAPE:
+                    case 'q':
                         quit = 1;
-                         break;
-                          break;
+                        break;
+                
                     default:
                         break;
                 }
@@ -87,7 +104,7 @@ int main() {
 
 
             // Renderizar el tablero en cada iteración
-            render_board(&game, renderer);
+            render_tablero(&game, renderer);
         }
     }
         
