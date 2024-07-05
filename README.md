@@ -33,10 +33,12 @@
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
 
   <p align="center">
-    Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
+    Crear un programa interactivo del juego 2048 en lenguaje de programación C.
     <br />
     
 </div>
+
+A modo de descripción general, el proyecto dentro de este repositorio consiste en una implementación del juego 2048, el cual corresponde a un juego donde los jugadores deslizan fichas numeradas con múltiplos de 2 en una cuadrícula para combinarlas y crear una ficha con el valor de 2048.
 
 ## Colaboradores
 - **Daniel Alberto Sáenz Obando** - C37099
@@ -47,7 +49,7 @@
 
 ### SDL2
 
-Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
+Primero, se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
 
  ```sh
    sudo apt-get update 
