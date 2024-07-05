@@ -227,6 +227,12 @@ int checkPerder(Game* game) {
     return 0;
 }
 
+/*
+ * checkVictoria() verifica si una casilla tiene el valor de 2048
+ * 
+ * @param Game* game: Puntero al struct game
+ * @return int esGanador: 1 si es ganador | 0 si perdio
+ */
 int checkVictoria(Game* game) {
     if (game == NULL) {
         printf("Error: Direccion de game indefinida\n");
