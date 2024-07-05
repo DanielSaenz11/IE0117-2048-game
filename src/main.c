@@ -7,34 +7,40 @@
 #include <SDL2/SDL_ttf.h>
 
 int main() {
-    srand(time(NULL));
+    srand(time(NULL)); // Generacion de numeros aleatorios
 
-    char direccion;
-    Game game;
-    printf("Ingrese el tamano del tablero para jugar: ");
-    scanf("%d", &game.tamanoTablero);
+    char direccion; // Manejar la direccion de movimiento
+
+    Game game; // Estructura para almacenar las variables del juego
     
-    if (!init_board(&game)) {  // Validación adicional para init_board
+   game.tamanoTablero =  checkSize(); // Validar entrada del usuario
+    
+    // Reservar memoria dinamica para el tablero
+    if (!init_board(&game)) {
         printf("Error al inicializar el tablero.\n");
         return 1;
     }
     
+    // Inicializar SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("No se pudo inicializar SDL. SDL Error: %s\n", SDL_GetError());
         return 1;
     }
 
+    // Inicializar SDL_ttf
     if (TTF_Init() < 0) {
         printf("No se pudo inicializar SDL_ttf. SDL_ttf Error: %s\n", TTF_GetError());
         return 1;
     }
     
+    // Iniciar ventana
     SDL_Window *window = SDL_CreateWindow("2048", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game.tamanoTablero * 100, game.tamanoTablero * 100 + 50, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("No se pudo crear la ventana. SDL Error: %s\n", SDL_GetError());
         return 1;
     }
 
+    // Iniciar render
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
         printf("No se pudo inicializar el renderer. SDL Error: %s\n", SDL_GetError());
@@ -45,7 +51,7 @@ int main() {
     addCasillaRandom(&game);
     addCasillaRandom(&game);
 
-    int quit = 0;
+    int quit = 0; // En caso de que se presione alguna tecla para salir
     SDL_Event evento;
 
     while (!quit && !checkPerder(&game)) {
