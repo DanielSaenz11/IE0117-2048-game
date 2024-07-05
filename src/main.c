@@ -54,7 +54,7 @@ int main() {
     int quit = 0; // En caso de que se presione alguna tecla para salir
     SDL_Event evento;
 
-    while (!quit && !checkPerder(&game)) {
+    while (!quit && !checkPerder(&game) && !checkVictoria(&game)) {
 
         while (SDL_PollEvent(&evento) != 0) {
 
@@ -118,8 +118,21 @@ int main() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    
-    freeTablero(&game);
     TTF_Quit();
+    
+    if (checkPerder(&game)) {
+        printf("Perdiste :(\n");
+    }
+
+    else if (checkVictoria(&game)) {
+        printf("Ganaste! Felicidades :)\n");
+    }
+
+    else {
+        printf("Vuelve pronto\n");
+    }
+
+    freeTablero(&game); // Liberar memoria dinamica
+
     return 0;
 }
