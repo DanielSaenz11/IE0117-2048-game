@@ -18,8 +18,8 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 
-
-
+# IE0117-2048-game
+Repositorio para el proyecto final del curso IE-0117 Programación bajo plataformas abiertas de Ingeniería Eléctrica en la Universidad de Costa Rica.
 
 <!-- PROJECT LOGO -->
 <br />
@@ -40,85 +40,6 @@
 - **Daniel Alberto Sáenz Obando** - C37099
 - **Elsa Valeria Roman Astua** - C26910
 - **Rodrigo Madrigal Montes** - C24458
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- TABLA DE CONTENIDOS -->
-<details>
-  <summary>Tabla de contenidos</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## Acerca del proyecto
-
-### Objetivo general
-
-**Crear un programa interactivo del juego 2048 en el lenguaje de programación C, por medio del uso de la biblioteca open source SDL2 para la interfaz gráfica del proyecto.**
-
-### Objetivos específicos
-
-1. **Lógica de programación del juego 2048**
-    - Condiciones de victoria/derrota
-    - Movimientos
-    - Combinación de casillas
-2. **Interfaz gráfica con la biblioteca SDL2**
-3. **Documentación detallada del proyecto en GitHub**
-    - Instalación de bibliotecas
-    - Compilación
-    - Ejecución
-
-## Alcances
-
-1. **Interfaz gráfica simple**
-    - Animaciones sencillas de unión de casillas
-    - Puntuación y puntuación máxima arriba del tablero
-    - Tiempo jugado
-2. **Plataforma: Linux**
-3. **Tablero**
-    - 3-5 casillas por lado
-4. **Input del usuario**
-    - Flechas del teclado
-
-## Bibliotecas requeridas
-
-### SDL2
-La siguiente imagen es con fines ilustrativos de la forma en que se va observar el juego al terminar su implementación.
-
-  <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
-    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
-  </a>
-
-### Otras bibliotecas
-
-1. `time.h`
-    - Tiempo transcurrido y posición de nuevas casillas
-2. `stdio.h`
-3. `stdlib.h`
-    - Memoria dinámica para el manejo del arreglo de números variable
-
 
 ## Instalación de las bibliotecas SDL2 y SDL2_ttf
 
@@ -229,5 +150,3 @@ Y por último ejecutar el ejecutable generado `2048`
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-# IE0117-2048-game
-Repositorio para el proyecto final del curso IE-0117 Programación bajo plataformas abiertas de Ingeniería Eléctrica en la Universidad de Costa Rica.
