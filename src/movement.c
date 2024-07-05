@@ -1,6 +1,6 @@
-#include "../include/gui.h"
-#include "../include/game-logic.h"
-#include "../include/movement.h"
+#include "gui.h"
+#include "game-logic.h"
+#include "movement.h"
 #include <stdio.h>
 
 
