@@ -7,8 +7,14 @@
 #include <SDL2/SDL_ttf.h>
 
 
-// Funcion para renderizar el tablero con SDL y SDL_ttf
-void render_tablero(Game *game, SDL_Renderer *renderer) {
+/*
+ * render_tablero() se encarga de renderizar el tablero para mostrar en la ventana
+ * los movimientos y acciones del usuario
+ * 
+ * @param1 Game* game: Puntero al struct que almacena las propiedades del juego
+ * @param2 SDL_Renderer* renderer: Puntero al renderer propio de SDL
+ */
+void render_tablero(Game* game, SDL_Renderer* renderer) {
     // Tamano para cada una de las celdas en pixeles
     int tamano_celda = 100;
     int margen_superior = 50;
