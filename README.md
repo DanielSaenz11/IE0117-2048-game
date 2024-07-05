@@ -116,15 +116,15 @@ Como siguiente paso, se clona el repositorio de este proyecto y se dirige hacia 
    cd IE0117-2048-game
 ```
 
-Posteriormente, se escribe el siguiente comando para ejecutar configurar el meson en una carpeta que se llamará `build`:
+Posteriormente, se escribe el siguiente comando para ejecutar configurar el meson en una carpeta que se llamará `builddir`:
 ```sh
-   meson setup build
+   meson setup builddir
 ```
 
-Ahora, debe dirigirse al directorio `build` y compilar con el comando `ninja`:
+Ahora, debe dirigirse a `builddir` y compilar con el comando `ninja`:
 
 ```sh
-   cd build
+   cd builddir
    ninja
 ```
 
