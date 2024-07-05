@@ -76,9 +76,9 @@ Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2
 
 ### Instalacion de fuente tipografica
 Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
-1. Accder a FontSpace desde el navegador.
-2. En la pestaña de busqueda de FontSpace y buscar Italic.
-3. Descargar Nigth Pumpkind.
+1. Acceder a FontSpace desde el navegador.
+2. En la pestaña de busqueda de FontSpace buscar Italic.
+3. Descargar Nigth Pumpkind que fue la fuente utilizada en el proyecto.
 4. Seleccionar el repositorio como destino de descarga.
 5. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
    ```sh
