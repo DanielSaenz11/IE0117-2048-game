@@ -13,7 +13,7 @@ int main() {
 
     Game game; // Estructura para almacenar las variables del juego
     
-   game.tamanoTablero =  checkSize(); // Validar entrada del usuario
+    game.tamanoTablero =  checkSize(); // Validar entrada del usuario
     
     // Reservar memoria dinamica para el tablero
     if (!init_board(&game)) {
@@ -122,6 +122,7 @@ int main() {
     
     if (checkPerder(&game)) {
         printf("Perdiste :(\n");
+        printf("Puntuacion obtenida: %d\n", game.puntuacion);
     }
 
     else if (checkVictoria(&game)) {
