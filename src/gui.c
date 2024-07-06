@@ -33,7 +33,7 @@ int render_tablero(Game* game, SDL_Renderer* renderer) {
     SDL_Color textColor = {0, 0, 0, 255};  // Color negro para el texto de la puntuacion
 
     // Renderizar la puntuacion
-    char puntuacion[20];
+    char puntuacion[SIZE_PUNTUACION];
     sprintf(puntuacion, "Puntuacion: %d", game->puntuacion);
 
     SDL_Surface *superficie_puntuacion = TTF_RenderText_Solid(font, puntuacion, textColor);
@@ -95,7 +95,7 @@ int render_tablero(Game* game, SDL_Renderer* renderer) {
 
             // Renderizar texto si la celda no esta vacia
             if (game->tablero[i][j] != 0) {
-                char valorCasilla[5];
+                char valorCasilla[SIZE_VALOR_CASILLA];
 
                 sprintf(valorCasilla, "%d", game->tablero[i][j]); // Agregar valor de la casilla
 
