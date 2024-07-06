@@ -20,196 +20,134 @@
 
 
 
-
 <!-- PROJECT LOGO -->
+
+# IE0117-2048-game
+
 <br />
 <div align="center">
   <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
-    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/images/2048.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
 
   <p align="center">
-    Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
+    Crear un programa interactivo del juego 2048 en lenguaje de programación C.
     <br />
     
 </div>
+
+A modo de descripción general, este repositorio consiste en la implementación con el lenguaje de programación de C del juego 2048. Este juego consiste en un tablero, donde los jugadores deslizan fichas numeradas con múltiplos de 2 en una cuadrícula para combinarlas y crear una ficha con el valor de 2048.
 
 ## Colaboradores
 - **Daniel Alberto Sáenz Obando** - C37099
 - **Elsa Valeria Roman Astua** - C26910
 - **Rodrigo Madrigal Montes** - C24458
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Instalación de las bibliotecas SDL2 y SDL2_ttf
 
-<!-- TABLA DE CONTENIDOS -->
-<details>
-  <summary>Tabla de contenidos</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+### SDL2
 
+Primero se deben actualizar los paquetes del sistema ejecutando el siguiente comando y siguiendo las instruccciones:
 
+ ```sh
+   sudo apt-get update 
+```
 
-<!-- ABOUT THE PROJECT -->
-## Acerca del proyecto
+Ahora, se ejecuta el siguiente comando para instalar la biblioteca `SDL2`:
 
-### Objetivo general
+ ```sh
+   sudo apt-get install libsdl2-dev
+```
 
-**Crear un programa interactivo del juego 2048 en el lenguaje de programación C, por medio del uso de la biblioteca open source SDL2 para la interfaz gráfica del proyecto.**
+Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la instalación, se utiliza el siguiente comando:
 
-### Objetivos específicos
+```sh
+   pkg-config --list-all | grep sdl2
+```
+Si existe en el sistema, se muestra que la biblioteca fue instalada correctamente. 
 
-1. **Lógica de programación del juego 2048**
-    - Condiciones de victoria/derrota
-    - Movimientos
-    - Combinación de casillas
-2. **Interfaz gráfica con la biblioteca SDL2**
-3. **Documentación detallada del proyecto en GitHub**
-    - Instalación de bibliotecas
-    - Compilación
-    - Ejecución
+### SDL2_ttf
 
-## Alcances
+Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2_ttf`:
 
-1. **Interfaz gráfica simple**
-    - Animaciones sencillas de unión de casillas
-    - Puntuación y puntuación máxima arriba del tablero
-    - Tiempo jugado
-2. **Plataforma: Linux**
-3. **Tablero**
-    - 3-5 casillas por lado
-4. **Input del usuario**
-    - Flechas del teclado
+ ```sh
+   sudo apt-get install libsdl2-ttf-dev
+```
+Para comprobar su existencia en el sistema:
 
-## Bibliotecas
+```sh
+   pkg-config --list-all | grep SDL2_ttf
+```
 
-### Bibliotecas a utilizar:
-La siguiente imagen es con fines ilustrativos de la forma en que se va observar el juego al terminar su implementación.
-
-1. `time.h`
-    - Tiempo transcurrido y posición de nuevas casillas
-3. `stdio.h`
-4. `SDL2`
-    - Implementacion de ventana grafica
-5. `stdlib.h`
-    - Memoria dinámica para el manejo del arreglo de números variable
-6. `SDL2_ttf`
-   - Se utiliza en conjunto con SDL2 para manejar fuentes.
-
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+### Instalación de fuente tipográfica
+Para el texto que aparece en la ventana gráfica fue necesario instalar una fuente tipográfica. 
+1. Acceder a FontSpace desde el navegador al siguiente link:
+  ```
+  https://www.fontspace.com/night-pumpkind-font-f86994
+  ```
+4. Descargar la fuente y colocar el destino de descarga el directorio del presente repositorio.
+6. Descomprimir el archivo `.zip` de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+      unzip nigth-pumpkind-font.zip
    ```
-3. Install NPM packages
+7. Extraer el archivo con la fuente que tiene extension .ttf
+8. Otorgarle los permisos de ejecución de la fuente de la siguiente manera:
    ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+      chmod +w “NightPumpkind-1GpGv.ttf"
+
+## Ejecución del build system (Meson)
+
+Primero, se debe instalar `meson` en el equipo con el siguiente comando:
+
+ ```sh
+   pip3 install --user meson 
+```
+
+Esto instala meson en el path `~/.local/`, por lo cual hay que agregar `~/.local/bin` al PATH:
+
+ ```sh
+   export PATH=$PATH:~/.local/bin
+```
+
+Además, se debe instalar `ninja`, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
+ ```sh
+   sudo apt-get install ninja-build
+```
+
+Como siguiente paso, se clona el repositorio de este proyecto y se dirige hacia el directorio del mismo:
+
+```sh
+   git clone https://github.com/DanielSaenz11/IE0117-2048-game.git
+   cd IE0117-2048-game
+```
+
+Posteriormente, se escribe el siguiente comando para ejecutar configurar el meson en una carpeta que se llamará `build`:
+```sh
+   meson setup build
+```
+
+Ahora, debe compilar con el comando `ninja`:
+
+```sh
+   ninja -C build
+```
+
+Por último, ejecutar el ejecutable generado `2048`:
+
+```sh
+   ./build/2048
+```
+
+## Instrucciones de juego
+Después de la compilación, se tiene que el juego funciona de manera que, los movimientos de las casillas se realizan con las flechas del teclado. En caso de querer salir del juego, se puede cerrar la ventana, tocar la tecla ESCAPE o la tecla `q`. Ahora bien, durante el juego, con cada movimiento aparecen nuevas casillas en posiciones aleatorias. Si dos casillas son iguales y no hay ninguna casilla ocupada entre ellas, entonces si se mueve una de ellas hacia la otra, las casillas se fusionan y pasan a tener el doble del valor anterior.
+
+Por un lado, la condición de pérdida del juego consiste en que el tablero se llene y que no haya un movimiento disponible válido. En ese caso, se cierra la ventana y se muestra un mensaje que indica el resultado en la terminal.
+
+Por otro lado, la condición de victoria corresponde a que se fusionen las casillas y se llegue a un caso donde se forma una casilla con valor 2048. En ese momento, se cierra la ventana y se muestra un mensaje de victoria.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -243,5 +181,3 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-# IE0117-2048-game
-Repositorio para el proyecto final del curso IE-0117 Programación bajo plataformas abiertas de Ingeniería Eléctrica en la Universidad de Costa Rica.
