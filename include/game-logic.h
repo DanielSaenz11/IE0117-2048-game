@@ -9,6 +9,7 @@ typedef struct Game {
 } Game;
 
 typedef enum {
+    ERROR_NONE = 0,
     NULL_POINTER = -1,
     BAD_MEMORY_ALLOCATION = -2
 } ErrorCode;
@@ -40,13 +41,13 @@ int init_board(Game* game);
  * 
  * @param Game* game: Puntero al struct game
  */
-void printTablero(Game* game); // Terminal debugging
+int printTablero(Game* game); // Terminal debugging
 
 /*
  * addCasillaRandom() anade una casilla nueva entre las casillas vacias
  * @param Game* game: Puntero al struct game
  */
-void addCasillaRandom(Game* game);
+int addCasillaRandom(Game* game);
 
 /*
  * checkPerder() verifica si no hay movimientos disponibles
@@ -72,14 +73,14 @@ int checkVictoria(Game* game);
  * @param1 Game* game: Puntero al struct game
  * @param2 int puntuacion: Valor de fusion para cambiar la puntuacion
  */
-void actualizarPuntuacion(Game* game, int puntuacion);
+int actualizarPuntuacion(Game* game, int puntuacion);
 
 /*
  * freeTablero() libera la memoria dinamica reservada para el tablero
  * 
  * @param1 Game* game: Puntero al struct game
  */
-void freeTablero(Game* game);
+int freeTablero(Game* game);
 
 #endif /* GAME_LOGIC_H */
 

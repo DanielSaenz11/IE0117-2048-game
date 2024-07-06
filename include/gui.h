@@ -13,7 +13,7 @@
  * @param1 Game* game: Puntero al struct que almacena las propiedades del juego
  * @param2 SDL_Renderer* renderer: Puntero al renderer propio de SDL
  */
-void render_tablero(Game *game, SDL_Renderer *renderer);
+int render_tablero(Game *game, SDL_Renderer *renderer);
 
 
 #endif /* GUI_H */

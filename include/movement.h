@@ -20,6 +20,6 @@ int moverCasillas(Game* game, char direccion);
  * @param1 Game* game: Puntero al struct game
  * @param2 char direccion: Direccion de fusion indicada
  */
-void fusionarCasillas(Game* game, char direccion);
+int fusionarCasillas(Game* game, char direccion);
 
 #endif /* MOVEMENT_H */
