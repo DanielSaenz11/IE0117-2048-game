@@ -6,6 +6,9 @@
 #include <SDL2/SDL_ttf.h>
 #include "game-logic.h"
 
+#define SIZE_PUNTUACION 20
+#define SIZE_VALOR_CASILLA 5
+
 /*
  * render_tablero() se encarga de renderizar el tablero para mostrar en la ventana
  * los movimientos y acciones del usuario
