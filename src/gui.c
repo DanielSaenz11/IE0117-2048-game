@@ -14,7 +14,7 @@
  * @param1 Game* game: Puntero al struct que almacena las propiedades del juego
  * @param2 SDL_Renderer* renderer: Puntero al renderer propio de SDL
  */
-void render_tablero(Game* game, SDL_Renderer* renderer) {
+int render_tablero(Game* game, SDL_Renderer* renderer) {
     // Tamano para cada una de las celdas en pixeles
     int tamano_celda = 100;
     int margen_superior = 50;
@@ -25,8 +25,8 @@ void render_tablero(Game* game, SDL_Renderer* renderer) {
     // Cargar la fuente para el tablero y la puntuacion
     TTF_Font *font = TTF_OpenFont("./NightPumpkind-1GpGv.ttf", 24);  // Ruta y tamano de la fuente
     if (font == NULL) {
-        printf("Error al cargar la fuente del programa: %s\n", TTF_GetError());
-        return;
+        fprintf(stderr, "Error al cargar la fuente del programa: %s\n", TTF_GetError());
+        return NULL_POINTER;
     }
 
     SDL_Color textColor = {0, 0, 0, 255};  // Color negro para el texto de la puntuacion
@@ -36,11 +36,15 @@ void render_tablero(Game* game, SDL_Renderer* renderer) {
     sprintf(puntuacion, "Puntuacion: %d", game->puntuacion);
     SDL_Surface *superficie_puntuacion = TTF_RenderText_Solid(font, puntuacion, textColor);
     if (superficie_puntuacion == NULL) {
-        printf("Error al renderizar superficie el texto de la puntuación. SDL_ttf Error: %s\n", TTF_GetError());
-    } else {
+        fprintf(stderr, "Error al renderizar superficie el texto de la puntuación. SDL_ttf Error: %s\n", TTF_GetError());
+        return NULL_POINTER;
+    }
+    else {
         SDL_Texture *textura_puntuacion = SDL_CreateTextureFromSurface(renderer, superficie_puntuacion);
         if (textura_puntuacion == NULL) {
-            printf("Error al crear textura de superficie de la puntuacion. SDL Error: %s\n", SDL_GetError());
+            fprintf(stderr, "Error al crear textura de superficie de la puntuacion. SDL Error: %s\n", SDL_GetError());
+            return NULL_POINTER;
+
         } else {
             SDL_Rect puntRectangulo;
             puntRectangulo.x = 10;  // Posición en X de la puntuación
@@ -78,15 +82,15 @@ void render_tablero(Game* game, SDL_Renderer* renderer) {
                 // Renderizar texto
                 SDL_Surface *superficie_texto = TTF_RenderText_Solid(font, valorCasilla, textColor);
                 if (superficie_texto == NULL) {
-                    printf("Error al renderizar superficie el texto. SDL_ttf Error: %s\n", TTF_GetError());
-                    continue;
+                    fprintf(stderr, "Error al renderizar superficie el texto. SDL_ttf Error: %s\n", TTF_GetError());
+                    return NULL_POINTER;
                 }
 
                 SDL_Texture *textura_texto = SDL_CreateTextureFromSurface(renderer, superficie_texto);
                 if (textura_texto == NULL) {
-                    printf("Error al crear textura de superficie. SDL Error: %s\n", SDL_GetError());
+                    fprintf(stderr, "Error al crear textura de superficie. SDL Error: %s\n", SDL_GetError());
                     SDL_FreeSurface(superficie_texto);
-                    continue;
+                    return NULL_POINTER;
                 }
 
                 // Configurar posición del texto dentro de la celda
@@ -110,5 +114,7 @@ void render_tablero(Game* game, SDL_Renderer* renderer) {
 
     // Actualizar la pantalla
     SDL_RenderPresent(renderer);
+
+    return ERROR_NONE;
 }
 

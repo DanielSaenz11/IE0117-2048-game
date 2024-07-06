@@ -19,13 +19,11 @@ int checkSize() {
     char c;
 
     while (!esValido) {
-        printf("Ingrese el tamano del tablero en el que desea jugar:\n");
+        printf("Ingrese el tamano del tablero en el que desea jugar [3-5]:\n");
         
 
-        if (scanf("%d", &numero) == 1) {
-            if (numero >= 3 && numero <=5) {
-                esValido = 1;
-            }
+        if (scanf("%d", &numero) == 1 && numero >= 3 && numero <=5) {
+            esValido = 1;
         }
 
         else {
@@ -78,14 +76,14 @@ int init_board(Game* game) {
 
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
-        return 0;
+        return NULL_POINTER;
     }
 
     game->tablero = (int **)malloc(game->tamanoTablero * sizeof(int *));
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error al reservar memoria dinamica para las filas del tablero: %s\n", strerror(errno));
-        return 0;
+        return NULL_POINTER;
     }
 
 
@@ -94,7 +92,7 @@ int init_board(Game* game) {
 
         if (game->tablero[i] == NULL) {
             fprintf(stderr, "Error al reservar memeria dinamica para las filas del tablero: %s\n", strerror(errno));
-            return 0;
+            return NULL_POINTER;
         }
 
         for (int j = 0; j < game->tamanoTablero; j++) {
@@ -104,7 +102,7 @@ int init_board(Game* game) {
 
     game->puntuacion = 0;
 
-    return 1;
+    return ERROR_NONE;
 }
 
 /*
@@ -112,15 +110,15 @@ int init_board(Game* game) {
  * 
  * @param Game* game: Puntero al struct game
  */
-void printTablero(Game* game) {
+int printTablero(Game* game) {
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
-        return;
+        return NULL_POINTER;
     }
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
-        return;
+        return NULL_POINTER;
     }
 
     printf("Puntuacion: %d\n", game->puntuacion);
@@ -134,23 +132,24 @@ void printTablero(Game* game) {
 
         printf("\n");
     }
-    printf("\n");
 
+    printf("\n");
+    return ERROR_NONE;
 }
 
 /*
  * addCasillaRandom() anade una casilla nueva entre las casillas vacias
  * @param Game* game: Puntero al struct game
  */
-void addCasillaRandom(Game* game) {
+int addCasillaRandom(Game* game) {
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
-        return;
+        return NULL_POINTER;
     }
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
-        return;
+        return NULL_POINTER;
     }
 
     int casillasVacias = 0;
@@ -168,7 +167,7 @@ void addCasillaRandom(Game* game) {
 
     if (casillasVacias == 0) {
         // Condicion de perder
-        return;
+        return 0;
     }
 
     /* Generar numero aleatorio para el rango de casillas vacias */ 
@@ -187,13 +186,14 @@ void addCasillaRandom(Game* game) {
                 
                 if (posicionCasilla == 0) {
                     game->tablero[i][j] = valorCasilla;
-                    return;
+                    return ERROR_NONE;
                 }
 
             posicionCasilla--;
             }
         }
     }
+    return ERROR_NONE;
 }
 
 /*
@@ -206,12 +206,12 @@ void addCasillaRandom(Game* game) {
 int checkPerder(Game* game) {
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
-        return -1;
+        return NULL_POINTER;
     }
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
-        return -1;
+        return NULL_POINTER;
     }
 
     int casillasVacias = 0;
@@ -230,7 +230,7 @@ int checkPerder(Game* game) {
         return 1;
     }
 
-    return 0;
+    return ERROR_NONE;
 }
 
 /*
@@ -242,11 +242,12 @@ int checkPerder(Game* game) {
 int checkVictoria(Game* game) {
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
+        return NULL_POINTER;
     }
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
-        return -1;
+        return NULL_POINTER;
     }
 
     int esGanador = 0;
@@ -270,8 +271,15 @@ int checkVictoria(Game* game) {
  * @param1 Game* game: Puntero al struct game
  * @param2 int puntuacion: Valor de fusion para cambiar la puntuacion
  */
-void actualizarPuntuacion(Game* game, int puntuacion) {
+int actualizarPuntuacion(Game* game, int puntuacion) {
+    if (game == NULL) {
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
+        return NULL_POINTER;
+    }
+
     game->puntuacion += puntuacion;
+
+    return ERROR_NONE;
 }
 
 
@@ -280,15 +288,15 @@ void actualizarPuntuacion(Game* game, int puntuacion) {
  * 
  * @param1 Game* game: Puntero al struct game
  */
-void freeTablero(Game* game) {
+int freeTablero(Game* game) {
     if (game == NULL) {
         fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
-        return;
+        return NULL_POINTER;
     }
 
     if (game->tablero == NULL) {
         fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
-        return -1;
+        return NULL_POINTER;
     }
 
     for (int i = 0; i < game->tamanoTablero; i++) {
@@ -296,4 +304,6 @@ void freeTablero(Game* game) {
     }
 
     free(game->tablero);
+
+    return ERROR_NONE;
 }

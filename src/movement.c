@@ -2,7 +2,8 @@
 #include "game-logic.h"
 #include "movement.h"
 #include <stdio.h>
-
+#include <errno.h>
+#include <string.h>
 
 /*
  * moverCasillas() realiza el movimientos de las casillas en una direccion dada
@@ -12,6 +13,16 @@
  * @return casillasMovidas: Numero de casillas movidas durante el llamado de la funcion
  */
 int moverCasillas(Game* game, char direccion) {
+    if (game == NULL) {
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
+        return NULL_POINTER;
+    }
+
+    if (game->tablero == NULL) {
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
+        return NULL_POINTER;
+    }
+
     int casillasMovidas = 0;
 
 
@@ -100,7 +111,7 @@ int moverCasillas(Game* game, char direccion) {
 
     
     default:
-        printf("Direccion invalida\n");
+        fprintf(stderr, "Direccion de movimiento invalida\n");
         return -1;
     }
 
@@ -115,7 +126,16 @@ int moverCasillas(Game* game, char direccion) {
  * @param1 Game* game: Puntero al struct game
  * @param2 char direccion: Direccion de fusion indicada
  */
-void fusionarCasillas(Game* game, char direccion) {
+int fusionarCasillas(Game* game, char direccion) {
+    if (game == NULL) {
+        fprintf(stderr, "Error direccion de game indefinida: %s\n", strerror(errno));
+        return NULL_POINTER;
+    }
+
+    if (game->tablero == NULL) {
+        fprintf(stderr, "Error tablero nulo: %s\n", strerror(errno));
+        return NULL_POINTER;
+    }
 
     int filaInicio = 0, filaAvance = 0;
     int columnaInicio = 0, columnaAvance = 0;
@@ -150,8 +170,8 @@ void fusionarCasillas(Game* game, char direccion) {
         break;
 
     default:
-        printf("Direccion invalida\n");
-        return;
+        fprintf(stderr, "Direccion  de fusion invalida\n");
+        return -1;
     }
 
 
@@ -175,5 +195,5 @@ void fusionarCasillas(Game* game, char direccion) {
             }
         }
     }
-    
+    return ERROR_NONE;
 }
