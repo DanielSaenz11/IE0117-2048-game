@@ -37,12 +37,15 @@ int render_tablero(Game* game, SDL_Renderer* renderer) {
     SDL_Surface *superficie_puntuacion = TTF_RenderText_Solid(font, puntuacion, textColor);
     if (superficie_puntuacion == NULL) {
         fprintf(stderr, "Error al renderizar superficie el texto de la puntuación. SDL_ttf Error: %s\n", TTF_GetError());
+        TTF_CloseFont(font);
         return NULL_POINTER;
     }
     else {
         SDL_Texture *textura_puntuacion = SDL_CreateTextureFromSurface(renderer, superficie_puntuacion);
         if (textura_puntuacion == NULL) {
             fprintf(stderr, "Error al crear textura de superficie de la puntuacion. SDL Error: %s\n", SDL_GetError());
+            SDL_FreeSurface(superficie_puntuacion);
+            TTF_CloseFont(font);
             return NULL_POINTER;
 
         } else {
