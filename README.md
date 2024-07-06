@@ -25,7 +25,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/DanielSaenz11/IE0117-2048-game">
-    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/2048.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/DanielSaenz11/IE0117-2048-game/blob/main/images/2048.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
