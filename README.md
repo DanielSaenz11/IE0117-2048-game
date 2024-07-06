@@ -81,14 +81,14 @@ Para comprobar su existencia en el sistema:
    pkg-config --list-all | grep SDL2_ttf
 ```
 
-### Instalacion de fuente tipografica
-Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
+### Instalación de fuente tipográfica
+Para el texto que aparece en la ventana gráfica fue necesario instalar una fuente tipográfica. 
 1. Acceder a FontSpace desde el navegador al siguiente link:
   ```
   https://www.fontspace.com/night-pumpkind-font-f86994
   ```
 4. Descargar la fuente y colocar el destino de descarga el directorio del presente repositorio.
-6. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
+6. Descomprimir el archivo `.zip` de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
    ```sh
       unzip nigth-pumpkind-font.zip
    ```
@@ -99,20 +99,19 @@ Para el texto que aparece en la ventana grafica fue necesario instalar una fuent
 
 ## Ejecución del build system (Meson)
 
-Primero se debe instalar Meson en el equipo con el siguiente comando:
+Primero, se debe instalar `meson` en el equipo con el siguiente comando:
 
  ```sh
    pip3 install --user meson 
 ```
 
-Esto instala meson en el path `~/.local/`, por lo cual hay que agregarl `~/.local/bin` al PATH:
+Esto instala meson en el path `~/.local/`, por lo cual hay que agregar `~/.local/bin` al PATH:
 
  ```sh
    export PATH=$PATH:~/.local/bin
 ```
 
-Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
-
+Además, se debe instalar `ninja`, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
  ```sh
    sudo apt-get install ninja-build
 ```
