@@ -33,7 +33,7 @@
 <h3 align="center">Proyecto final Programación bajo plataformas abiertas - 2048</h3>
 
   <p align="center">
-    Crear un programa interactivo del juego 2048 en lenguaje de progrmación C.
+    Crear un programa interactivo del juego 2048 en lenguaje de programación C.
     <br />
     
 </div>
@@ -64,9 +64,9 @@ Ahora, se ejecuta el siguiente comando para instalar la biblioteca `SDL2`:
 Con esto ya debería haberse instalado la biblioteca `SDL2`. Para corroborar la instalación, se utiliza el siguiente comando:
 
 ```sh
-   ls /usr/include/SDL2/SDL.h
+   pkg-config --list-all | grep sdl2
 ```
-Este es el archivo de encabezado de la biblioteca, si existe en el sistema se muestra que la biblioteca fue instalada correctamente. 
+Si existe en el sistema, se muestra que la biblioteca fue instalada correctamente. 
 
 ### SDL2_ttf
 
@@ -75,38 +75,43 @@ Igual que con la biblioteca anterior se ejecuta este comando para instalar `SDL2
  ```sh
    sudo apt-get install libsdl2-ttf-dev
 ```
+Para comprobar su existencia en el sistema:
 
-### Instalacion de fuente tipografica
-Para el texto que aparece en la ventana grafica fue necesario instalar una fuente tipografica. 
-1. Acceder a FontSpace desde el navegador.
-2. En la pestaña de busqueda de FontSpace buscar Italic.
-3. Descargar Nigth Pumpkind que fue la fuente utilizada en el proyecto.
-4. Seleccionar el repositorio como destino de descarga.
-5. Descomprimir el archivo zip de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
+```sh
+   pkg-config --list-all | grep SDL2_ttf
+```
+
+### Instalación de fuente tipográfica
+Para el texto que aparece en la ventana gráfica fue necesario instalar una fuente tipográfica. 
+1. Acceder a FontSpace desde el navegador al siguiente link:
+  ```
+  https://www.fontspace.com/night-pumpkind-font-f86994
+  ```
+4. Descargar la fuente y colocar el destino de descarga el directorio del presente repositorio.
+6. Descomprimir el archivo `.zip` de descarga puede ser manualmente en bibliotecas o ejecutando el siguiente comando:
    ```sh
-      unzip nigth-pumpkind-font
+      unzip nigth-pumpkind-font.zip
    ```
-6. Extraer el archivo con la fuente que tiene extension .ttf
-7. Otrorgarle los permisos de ejecucion de la fuente de la siguiente manera:
+7. Extraer el archivo con la fuente que tiene extension .ttf
+8. Otorgarle los permisos de ejecución de la fuente de la siguiente manera:
    ```sh
       chmod +w “NightPumpkind-1GpGv.ttf"
 
 ## Ejecución del build system (Meson)
 
-Primero se debe instalar Meson en el equipo con el siguiente comando:
+Primero, se debe instalar `meson` en el equipo con el siguiente comando:
 
  ```sh
    pip3 install --user meson 
 ```
 
-Esto instala meson en el path `~/.local/`, por lo cual hay que agregarl `~/.local/bin` al PATH:
+Esto instala meson en el path `~/.local/`, por lo cual hay que agregar `~/.local/bin` al PATH:
 
  ```sh
    export PATH=$PATH:~/.local/bin
 ```
 
-Además se debe instalar Ninja, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
-
+Además, se debe instalar `ninja`, que es el sistema de construcción utilizado por defecto en Meson, con este comando:
  ```sh
    sudo apt-get install ninja-build
 ```
@@ -123,17 +128,16 @@ Posteriormente, se escribe el siguiente comando para ejecutar configurar el meso
    meson setup build
 ```
 
-Ahora, debe dirigirse al directorio `build` y compilar con el comando `ninja`:
+Ahora, debe compilar con el comando `ninja`:
 
 ```sh
-   cd build
-   ninja
+   ninja -C build
 ```
 
 Por último, ejecutar el ejecutable generado `2048`:
 
 ```sh
-   ./2048
+   ./build/2048
 ```
 
 ## Instrucciones de juego
